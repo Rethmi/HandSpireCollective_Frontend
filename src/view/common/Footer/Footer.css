@@ -1,0 +1,36 @@
+/* Updated Footer CSS */
+.footer {
+    background-color: #111827; /* Dark Navy/Gray (matches gray-900) */
+    color: #d1d5db;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.875rem; /* Standard text size (14px) */
+    border-top: 1px solid #1f2937;
+}
+
+.business-name {
+    font-weight: 600;
+    color: #f59e0b; /* Amber-500 color to match your hero icons */
+    padding: 0 4px;
+}
+
+.copyright {
+    color: #9ca3af;
+    font-size: 0.75rem; /* Slightly smaller for copyright */
+    margin-top: 1rem;
+}
+
+.icon {
+    height: 1.5rem; /* Scaled down from 3rem for a modern look */
+    width: 1.5rem;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.icon:hover {
+    color: #f59e0b;
+}
