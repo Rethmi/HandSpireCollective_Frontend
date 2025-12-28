@@ -423,7 +423,7 @@
 //         </div>
 //     )
 // }
-import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award } from "lucide-react"
+import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../../../slices/rootReducer.ts"
 import { closeDropdown, getAllCategories, selectCategory, toggleDropdown } from "../../../slices/homeSlice.ts"
@@ -589,7 +589,7 @@ export function Home() {
                                     </div>
                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
                                         <img 
-                                            src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400&h=300&fit=crop" 
+                                            src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop" 
                                             alt="Decorations"
                                             className="w-full h-32 object-cover"
                                         />
@@ -609,7 +609,7 @@ export function Home() {
             </section>
 
             {/* Stats Section */}
-            <section className="bg-white border-y border-gray-100">
+            {/* <section className="bg-white border-y border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         <div className="text-center">
@@ -631,6 +631,155 @@ export function Home() {
                     </div>
                 </div>
             </section>
+
+            <section className="bg-white py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                            How CraftGallery Works
+                        </h2>
+                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+                            Get started in three simple steps and join our thriving creative community
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="text-center">
+                            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span className="text-2xl font-bold text-amber-700">1</span>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Create an Account</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                Sign up for free in seconds and set up your creative profile to get started.
+                            </p>
+                        </div>
+
+                        <div className="text-center">
+                            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span className="text-2xl font-bold text-orange-700">2</span>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Your Projects</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                Share your handmade creations with photos, descriptions, and step-by-step guides.
+                            </p>
+                        </div>
+
+                        <div className="text-center">
+                            <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span className="text-2xl font-bold text-rose-700">3</span>
+                            </div>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Connect & Inspire</h3>
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                                Engage with the community, get feedback, and inspire others with your creativity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section> */}
+
+            
+{/* Latest Blog Posts Section */}
+            <section className="bg-white py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between mb-8">
+                        <div>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                                From Our Blog
+                            </h2>
+                            <p className="text-sm text-gray-600">
+                                Tips, tutorials, and inspiration for your next project
+                            </p>
+                        </div>
+                        <button className="hidden md:flex items-center space-x-2 text-amber-700 font-semibold text-sm hover:text-amber-800">
+                            <span>Read More</span>
+                            <ChevronRight className="w-4 h-4" />
+                        </button>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+                            <img 
+                                src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=600&h=400&fit=crop" 
+                                alt="Blog post"
+                                className="w-full h-48 object-cover"
+                            />
+                            <div className="p-6">
+                                <div className="flex items-center text-xs text-gray-500 mb-3">
+                                    <Clock className="w-3 h-3 mr-1" />
+                                    <span>5 min read</span>
+                                    <span className="mx-2">•</span>
+                                    <span>Dec 20, 2024</span>
+                                </div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">
+                                    10 Essential Tools Every Crafter Needs
+                                </h3>
+                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                                    Discover the must-have tools that will transform your crafting experience and help you create professional-quality projects.
+                                </p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+                                    <span>Read Article</span>
+                                    <ChevronRight className="w-4 h-4 ml-1" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+                            <img 
+                                src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop" 
+                                alt="Blog post"
+                                className="w-full h-48 object-cover"
+                            />
+                            <div className="p-6">
+                                <div className="flex items-center text-xs text-gray-500 mb-3">
+                                    <Clock className="w-3 h-3 mr-1" />
+                                    <span>7 min read</span>
+                                    <span className="mx-2">•</span>
+                                    <span>Dec 18, 2024</span>
+                                </div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">
+                                    Watercolor Techniques for Beginners
+                                </h3>
+                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                                    Learn fundamental watercolor techniques that will help you create beautiful paintings, even if you're just starting out.
+                                </p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+                                    <span>Read Article</span>
+                                    <ChevronRight className="w-4 h-4 ml-1" />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+                            <img 
+                                src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" 
+                                alt="Blog post"
+                                className="w-full h-48 object-cover"
+                            />
+                            <div className="p-6">
+                                <div className="flex items-center text-xs text-gray-500 mb-3">
+                                    <Clock className="w-3 h-3 mr-1" />
+                                    <span>6 min read</span>
+                                    <span className="mx-2">•</span>
+                                    <span>Dec 15, 2024</span>
+                                </div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">
+                                    Sustainable Crafting: Eco-Friendly Materials
+                                </h3>
+                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                                    Explore environmentally conscious crafting materials and practices that help reduce waste while creating beautiful projects.
+                                </p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+                                    <span>Read Article</span>
+                                    <ChevronRight className="w-4 h-4 ml-1" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+          
+            
+           
 
             {/* Features Section */}
             <section className="bg-gray-50 py-16">
@@ -708,7 +857,144 @@ export function Home() {
                 </div>
             </section>
 
-            {/* CTA Section */}
+ 
+{/* Community Highlights Section */}
+            <section className="bg-gradient-to-br from-amber-50 to-orange-50 py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                            Community Achievements
+                        </h2>
+                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+                            Celebrating the incredible milestones of our creative community
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+                            <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Award className="w-7 h-7 text-amber-700" />
+                            </div>
+                            <div className="text-3xl font-bold text-amber-700 mb-2">2.5M+</div>
+                            <p className="text-sm text-gray-600">Total Likes Received</p>
+                        </div>
+
+                        <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+                            <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <MessageCircle className="w-7 h-7 text-orange-700" />
+                            </div>
+                            <div className="text-3xl font-bold text-orange-700 mb-2">180K+</div>
+                            <p className="text-sm text-gray-600">Community Comments</p>
+                        </div>
+
+                        <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+                            <div className="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Camera className="w-7 h-7 text-rose-700" />
+                            </div>
+                            <div className="text-3xl font-bold text-rose-700 mb-2">45K+</div>
+                            <p className="text-sm text-gray-600">Photos Uploaded Today</p>
+                        </div>
+
+                        <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+                            <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Users className="w-7 h-7 text-amber-700" />
+                            </div>
+                            <div className="text-3xl font-bold text-amber-700 mb-2">120+</div>
+                            <p className="text-sm text-gray-600">Countries Represented</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             {/* Trust Indicators Section */}
+            <section className="bg-white py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                            Trusted by Crafters Worldwide
+                        </h2>
+                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+                            Join thousands of satisfied creators who trust CraftGallery for their crafting journey
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0">
+                                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                    <CheckCircle className="w-6 h-6 text-green-600" />
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">100% Free to Join</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    No hidden fees or premium tiers. Access all features completely free and start sharing your work immediately.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0">
+                                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <Shield className="w-6 h-6 text-blue-600" />
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">Your Work is Protected</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Advanced security measures ensure your creative work and personal information remain safe and secure.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0">
+                                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <Heart className="w-6 h-6 text-purple-600" />
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">Supportive Community</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                    Connect with encouraging crafters who celebrate your work and provide constructive feedback.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+             {/* Newsletter Section */}
+            <section className="bg-gray-50 py-16">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
+                        <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <MessageCircle className="w-8 h-8 text-amber-700" />
+                        </div>
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                            Stay Inspired Weekly
+                        </h2>
+                        <p className="text-sm text-gray-600 mb-8 max-w-2xl mx-auto">
+                            Subscribe to our newsletter and get the latest craft trends, tutorials, and featured projects delivered to your inbox every week.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                            <input 
+                                type="email" 
+                                placeholder="Enter your email address"
+                                className="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+                            />
+                            <button className="bg-amber-600 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-md">
+                                Subscribe
+                            </button>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-4">
+                            Join 25,000+ crafters already subscribed. Unsubscribe anytime.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+
+            {/* CTA Section
             <section className="bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600 text-white py-16">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -722,7 +1008,7 @@ export function Home() {
                         <span>Get Started Free</span>
                     </button>
                 </div>
-            </section>
+            </section> */}
         </div>
     )
 }

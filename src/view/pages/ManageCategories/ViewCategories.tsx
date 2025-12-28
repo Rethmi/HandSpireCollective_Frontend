@@ -1548,7 +1548,8 @@ const ViewCategoriesPage = () => {
         try {
             setLoading(true);
             setError('');
-            const response = await backendApi.get('/category');
+            // const response = await backendApi.get('/category');
+            const response = await backendApi.get('/category/all');
             setCategories(Array.isArray(response.data) ? response.data : []);
         } catch (err: any) {
             setError(err.response?.data?.error || err.message || 'Failed to load categories');
@@ -1573,19 +1574,31 @@ const ViewCategoriesPage = () => {
     };
 
     // Update category
-    const updateCategory = async (id: string, categoryData: Omit<CategoryDto, 'id'>) => {
-        try {
-            setIsSubmitting(true);
-            const response = await backendApi.put(`/category/${id}`, categoryData);
-            const updatedCategory = response.data;
-            setCategories(prev => prev.map(cat => cat.id === id ? updatedCategory : cat));
-            return updatedCategory;
-        } catch (err: any) {
-            throw new Error(err.response?.data?.error || 'Failed to update category');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    // const updateCategory = async (id: string, categoryData: Omit<CategoryDto, 'id'>) => {
+    //     try {
+    //         setIsSubmitting(true);
+    //         const response = await backendApi.put(`/category/${id}`, categoryData);
+    //         const updatedCategory = response.data;
+    //         setCategories(prev => prev.map(cat => cat.id === id ? updatedCategory : cat));
+    //         return updatedCategory;
+    //     } catch (err: any) {
+    //         throw new Error(err.response?.data?.error || 'Failed to update category');
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // };
+    const updateCategory = async (categoryId: string, data: any) => {
+    try {
+        const response = await backendApi.put(`/category/${categoryId}`, data);
+
+        alert("Category updated successfully!");
+        fetchCategories(); // refresh list
+    } catch (error: any) {
+        console.error("Update failed:", error.response?.data);
+        alert(error.response?.data?.error || "Update failed");
+    }
+};
+
 
     // Delete category
     const deleteCategory = async (id: string) => {
