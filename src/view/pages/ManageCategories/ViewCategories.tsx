@@ -1725,7 +1725,7 @@ const ViewCategoriesPage = () => {
                 </div>
             )}
 
-            {/* Table Card */}
+            {/* Table Card
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
@@ -1770,7 +1770,76 @@ const ViewCategoriesPage = () => {
                         </tbody>
                     </table>
                 </div>
+            </div> */}
+            {/* Card View */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {loading ? (
+        <div className="col-span-full py-20 text-center text-slate-400 font-medium animate-pulse">
+            Syncing categories...
+        </div>
+    ) : filteredAndSortedCategories.length === 0 ? (
+        <div className="col-span-full py-20 text-center text-slate-400 font-medium">
+            No results found
+        </div>
+    ) : (
+        filteredAndSortedCategories.map((cat) => (
+            <div
+                key={cat.id}
+                className="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-lg transition-all p-6 group"
+            >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-black text-lg group-hover:bg-amber-600 group-hover:text-white transition-all">
+                            {cat.category.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-bold text-slate-900 leading-tight">
+                                {cat.category}
+                            </h3>
+                            <p className="text-[10px] font-mono text-slate-400 uppercase">
+                                #{cat.id?.substring(0, 8)}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-sm text-slate-600 font-medium line-clamp-3 mb-5">
+                    {cat.description}
+                </p>
+
+                {/* Actions */}
+                <div className="flex justify-end gap-2 border-t pt-4">
+                    <button
+                        onClick={() => handleCategoryView(cat)}
+                        className="p-2 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all"
+                        title="View"
+                    >
+                        <Eye size={16} />
+                    </button>
+
+                    <button
+                        onClick={() => handleUpdateCategory(cat)}
+                        className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                        title="Edit"
+                    >
+                        <Edit size={16} />
+                    </button>
+
+                    <button
+                        onClick={() => handleDeleteCategory(cat)}
+                        className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"
+                        title="Delete"
+                    >
+                        <Trash2 size={16} />
+                    </button>
+                </div>
             </div>
+        ))
+    )}
+</div>
+
 
             {/* View Modal */}
             {showDetailModal && selectedCategory && (

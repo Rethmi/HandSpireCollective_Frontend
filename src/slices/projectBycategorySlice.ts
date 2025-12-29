@@ -1,12 +1,16 @@
 import {createAsyncThunk, createSlice, type PayloadAction} from '@reduxjs/toolkit';
-import axios from 'axios';
+import { backendApi } from '../api'; // Use your configured axios instance
 
 export const fetchProjectsByCategory = createAsyncThunk(
     'project/getProjectByCategory',
-    async (category: string) => {
-        const response = await axios.get(`/api/project/category/${category}`);
-
-        return response.data;
+    async (category: string, { rejectWithValue }) => {
+        try {
+            // Ensure this matches the Backend Route added above
+            const response = await backendApi.get(`/project/category/${category}`);
+            return response.data;
+        } catch (error: any) {
+            return rejectWithValue(error.response?.data?.message || "Failed to fetch");
+        }
     }
 );
 
@@ -36,7 +40,7 @@ const initialState: CategoryProjectState = {
 };
 
 const projectByCategorySlice = createSlice({
-    name: 'projectsByCategory',
+    name: 'projectsByCategory', // This name is used in the store
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -51,7 +55,7 @@ const projectByCategorySlice = createSlice({
             })
             .addCase(fetchProjectsByCategory.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message ?? 'Something went wrong';
+                state.error = action.payload as string || 'Something went wrong';
             });
     },
 });
