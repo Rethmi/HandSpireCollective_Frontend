@@ -3,7 +3,7 @@
 // import { backendApi } from "../../../api.ts";
 // import { getUserFromToken } from "../../../Auth/auth.ts";
 // import type { UserData } from "../../../model/userData.ts";
-// import { Palette, Scissors, Sparkles, PaintBucket, Mail, Lock, LogIn, ArrowLeft } from "lucide-react";
+// import { Palette, Mail, Lock, LogIn, ArrowLeft, Loader2, Sparkle } from "lucide-react";
 // import { useState } from "react";
 
 // type FormData = {
@@ -48,275 +48,135 @@
 //     };
 
 //     return (
-//         <div className="min-h-screen flex font-['Inter',_sans-serif]">
-//             {/* Left Side - Description */}
-//             <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-black p-12 flex-col justify-center relative overflow-hidden">
-//                 {/* Animated Background Elements */}
-//                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-//                     <div className="absolute top-20 left-10 text-pink-500/20">
-//                         <Scissors className="w-16 h-16" />
+//         <div className="min-h-screen flex font-['Inter',_sans-serif] bg-white">
+//             {/* Left Side - Professional Branding Area */}
+//             <div className="hidden lg:flex lg:w-1/2 bg-slate-900 p-16 flex-col justify-between relative overflow-hidden">
+//                 {/* Background Texture */}
+//                 <div className="absolute inset-0 opacity-10 pointer-events-none">
+//                     <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-amber-500 rounded-full blur-[120px]"></div>
+//                     <div className="absolute bottom-[-10%] left-[-10%] w-96 h-96 bg-slate-500 rounded-full blur-[120px]"></div>
+//                 </div>
+
+//                 <div className="relative z-10">
+//                     <div className="flex items-center space-x-3 mb-12">
+//                         <div className="bg-amber-600 p-2.5 rounded-xl shadow-lg shadow-amber-900/20">
+//                             <Palette className="w-6 h-6 text-white" />
+//                         </div>
+//                         <span className="text-xl font-bold text-white tracking-tight">HandyCraft</span>
 //                     </div>
-//                     <div className="absolute top-40 right-20 text-purple-500/20">
-//                         <PaintBucket className="w-20 h-20" />
-//                     </div>
-//                     <div className="absolute bottom-32 left-1/4 text-blue-500/20">
-//                         <Palette className="w-14 h-14" />
-//                     </div>
-//                     <div className="absolute top-1/3 right-1/4 text-pink-500/20">
-//                         <Sparkles className="w-12 h-12" />
-//                     </div>
-//                     <div className="absolute bottom-20 right-1/3 text-purple-500/20">
-//                         <Scissors className="w-10 h-10" />
+
+//                     <div className="max-w-md">
+//                         <h2 className="text-5xl font-black text-white leading-tight mb-6">
+//                             Start Your <span className="text-amber-500">Creative</span> Journey.
+//                         </h2>
+//                         <p className="text-lg text-slate-400 font-medium leading-relaxed">
+//                             Access your personalized dashboard, manage your craft collection, and connect with artisans worldwide.
+//                         </p>
 //                     </div>
 //                 </div>
 
-//                 {/* Glowing orbs */}
-//                 <div className="absolute top-20 left-20 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
-//                 <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl"></div>
-//                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
-
-//                 {/* Content */}
-//                 <div className="relative z-10 max-w-xl mx-auto">
-//                     <div className="mb-8">
-//                         <div className="flex items-center space-x-3 mb-8">
-//                             <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl">
-//                                 <Palette className="w-8 h-8 text-white" />
-//                             </div>
-//                             <h1 className="text-3xl font-bold text-white font-['Playfair_Display',_serif]">Art & Craft Gallery</h1>
-//                         </div>
-//                     </div>
-
-//                     <div className="space-y-8">
-//                         <div>
-//                             <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-6 font-['Playfair_Display',_serif]">
-//                                 Welcome to Your Creative Community
-//                             </h2>
-//                             <p className="text-xl text-gray-300 leading-relaxed">
-//                                 Join thousands of makers, artists, and DIY enthusiasts sharing their creative projects and inspiring each other every day.
-//                             </p>
-//                         </div>
-
-//                         <div className="space-y-6 pt-8">
-//                             <div className="flex items-start space-x-4">
-//                                 <div className="bg-purple-500/20 backdrop-blur-sm p-3 rounded-xl flex-shrink-0">
-//                                     <Palette className="w-6 h-6 text-purple-400" />
-//                                 </div>
-//                                 <div>
-//                                     <h3 className="text-lg font-semibold text-white mb-2">Share Your Masterpieces</h3>
-//                                     <p className="text-gray-400">Upload your craft projects with detailed instructions, materials, and step-by-step guides to inspire others.</p>
-//                                 </div>
-//                             </div>
-
-//                             <div className="flex items-start space-x-4">
-//                                 <div className="bg-blue-500/20 backdrop-blur-sm p-3 rounded-xl flex-shrink-0">
-//                                     <Scissors className="w-6 h-6 text-blue-400" />
-//                                 </div>
-//                                 <div>
-//                                     <h3 className="text-lg font-semibold text-white mb-2">Discover Endless Ideas</h3>
-//                                     <p className="text-gray-400">Browse thousands of projects by category, skill level, and materials to find your next creative adventure.</p>
-//                                 </div>
-//                             </div>
-
-//                             <div className="flex items-start space-x-4">
-//                                 <div className="bg-pink-500/20 backdrop-blur-sm p-3 rounded-xl flex-shrink-0">
-//                                     <Sparkles className="w-6 h-6 text-pink-400" />
-//                                 </div>
-//                                 <div>
-//                                     <h3 className="text-lg font-semibold text-white mb-2">Connect & Collaborate</h3>
-//                                     <p className="text-gray-400">Join a vibrant community of crafters, share feedback, and build meaningful creative connections.</p>
-//                                 </div>
-//                             </div>
-//                         </div>
-
-//                         <div className="pt-8 border-t border-gray-700">
-//                             <div className="flex items-center space-x-6 text-gray-400 text-sm">
-//                                 <div className="flex items-center space-x-2">
-//                                     <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-//                                     <span>10,000+ Projects</span>
-//                                 </div>
-//                                 <div className="flex items-center space-x-2">
-//                                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-//                                     <span>5,000+ Creators</span>
-//                                 </div>
-//                                 <div className="flex items-center space-x-2">
-//                                     <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
-//                                     <span>50+ Categories</span>
-//                                 </div>
-//                             </div>
-//                         </div>
+//                 <div className="relative z-10">
+//                     <div className="flex items-center gap-2 text-slate-500 text-sm font-bold tracking-widest uppercase">
+//                         <Sparkle className="w-4 h-4 text-amber-500" />
+//                         Est. 2024 • Artisans Community
 //                     </div>
 //                 </div>
 //             </div>
 
-//             {/* Right Side - Login Form (Your Original Design) */}
-//             <div className="w-full lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4 relative overflow-hidden">
-//                 {/* Animated Background Elements for mobile */}
-//                 <div className="lg:hidden absolute inset-0 overflow-hidden pointer-events-none">
-//                     <div className="absolute top-20 left-10 text-pink-500/20">
-//                         <Scissors className="w-16 h-16" />
+//             {/* Right Side - Login Form */}
+//             <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
+//                 <div className="w-full max-w-sm">
+//                     {/* Header */}
+//                     <div className="mb-10">
+//                         <h2 className="text-3xl font-black text-slate-900 mb-2">Welcome Back</h2>
+//                         <p className="text-slate-500 font-medium">Please enter your details to sign in</p>
 //                     </div>
-//                     <div className="absolute top-40 right-20 text-purple-500/20">
-//                         <PaintBucket className="w-20 h-20" />
-//                     </div>
-//                     <div className="absolute bottom-32 left-1/4 text-blue-500/20">
-//                         <Palette className="w-14 h-14" />
-//                     </div>
-//                     <div className="absolute top-1/3 right-1/4 text-pink-500/20">
-//                         <Sparkles className="w-12 h-12" />
-//                     </div>
-//                     <div className="absolute bottom-20 right-1/3 text-purple-500/20">
-//                         <Scissors className="w-10 h-10" />
-//                     </div>
-//                 </div>
 
-//                 {/* Glowing orbs for mobile */}
-//                 <div className="lg:hidden absolute top-20 left-20 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
-//                 <div className="lg:hidden absolute bottom-20 right-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl"></div>
-//                 <div className="lg:hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
-
-//                 <div className="relative w-full max-w-md z-10">
-//                     {/* Error Message */}
+//                     {/* Error Display */}
 //                     {error && (
-//                         <div className="mb-6 bg-white/90 text-gray p-4 rounded-2xl shadow-xl animate-shake">
-//                             <div className="flex items-center gap-3">
-//                                 <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-//                                 <p className="text-sm font-medium">{error}</p>
-//                                 <button
-//                                     onClick={() => setError('')}
-//                                     className="ml-auto text-white hover:bg-white/20 p-1 rounded-full transition-colors"
-//                                 >
-//                                     ×
-//                                 </button>
-//                             </div>
+//                         <div className="mb-6 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center gap-3 text-rose-600 animate-in slide-in-from-top-2 duration-300">
+//                             <AlertCircleIcon size={18} />
+//                             <p className="text-xs font-bold">{error}</p>
 //                         </div>
 //                     )}
 
-//                     <div className="bg-gray-800/90 backdrop-blur-lg border border-purple-500/30 rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
-//                         {/* Header */}
-//                         <div className="p-4 text-center relative overflow-hidden" style={{ background: 'linear-gradient(to right, #1e3a8a, #0f766e, #164e63)' }}>
-//                             <div className="absolute inset-0 bg-blue-600/10 animate-pulse"></div>
-//                             <div className="relative z-10">
-//                                 <div className="flex justify-center mb-3">
-//                                     <div className="bg-white/10 backdrop-blur-sm p-3 rounded-2xl animate-bounce">
-//                                         <Palette className="w-8 h-8 text-white" />
-//                                     </div>
-//                                 </div>
-//                                 <h2 className="text-2xl font-bold text-white tracking-wide font-['Playfair_Display',_serif]">
-//                                     Welcome Back
-//                                 </h2>
-//                                 <p className="text-blue-200 text-sm mt-1 font-light">
-//                                     Sign in to continue your creative journey
-//                                 </p>
+//                     <form onSubmit={handleSubmit(authenticateUser)} className="space-y-5">
+//                         {/* Email */}
+//                         <div className="space-y-1.5">
+//                             <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
+//                             <div className="relative group">
+//                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-amber-600 transition-colors" />
+//                                 <input
+//                                     type="email"
+//                                     {...register("email", { required: true })}
+//                                     className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-medium focus:ring-4 focus:ring-amber-500/10 focus:border-amber-600 outline-none transition-all placeholder:text-slate-400"
+//                                     placeholder="name@company.com"
+//                                     disabled={loading}
+//                                 />
 //                             </div>
 //                         </div>
 
-//                         {/* Form Content */}
-//                         <div className="p-8 bg-gray-800/50">
-//                             <form className="space-y-5" onSubmit={handleSubmit(authenticateUser)}>
-//                                 {/* Email Field */}
-//                                 <div className="group">
-//                                     <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2 flex items-center gap-2">
-//                                         <Mail size={16} className="text-purple-400" />
-//                                         Email Address
-//                                     </label>
-//                                     <input
-//                                         type="email"
-//                                         id="email"
-//                                         {...register("email", { required: true })}
-//                                         className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all hover:border-purple-500/50"
-//                                         placeholder="Enter your Email"
-//                                         disabled={loading}
-//                                         required
-//                                     />
-//                                 </div>
-
-//                                 {/* Password Field */}
-//                                 <div className="group">
-//                                     <label htmlFor="password" className="block text-sm font-semibold text-gray-300 mb-2 flex items-center gap-2">
-//                                         <Lock size={16} className="text-blue-400" />
-//                                         Password
-//                                     </label>
-//                                     <input
-//                                         type="password"
-//                                         id="password"
-//                                         {...register("password", { required: true })}
-//                                         className="w-full px-4 py-3 bg-gray-700/50 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all hover:border-purple-500/50"
-//                                         placeholder="••••••••"
-//                                         disabled={loading}
-//                                         required
-//                                     />
-//                                 </div>
-
-//                                 {/* Forgot Password Link */}
-//                                 <div className="flex justify-end">
-//                                     <a href="#" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
-//                                         Forgot password?
-//                                     </a>
-//                                 </div>
-
-//                                 {/* Submit Button */}
-//                                 <div className="pt-2">
-//                                     <button
-//                                         type="submit"
-//                                         disabled={loading}
-//                                         className="w-full py-4 px-6 hover:from-pink-600 hover:via-purple-700 hover:to-blue-700 text-white font-bold rounded-xl transition-all duration-300
-//                                         transform hover:scale-[1.02] hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 text-lg"
-//                                         style={{ background: 'linear-gradient(to right, #1e3a8a, #0f766e, #164e63)' }}
-//                                     >
-//                                         {loading ? (
-//                                             <>
-//                                                 <div className="animate-spin rounded-full h-5 w-5 border-3 border-white border-t-transparent"></div>
-//                                                 <span>Signing In...</span>
-//                                             </>
-//                                         ) : (
-//                                             <>
-//                                                 <LogIn size={20} />
-//                                                 <span>Sign In</span>
-//                                             </>
-//                                         )}
-//                                     </button>
-//                                 </div>
-
-//                                 {/* Sign Up Link */}
-//                                 <div className="text-center pt-6 border-t border-gray-700">
-//                                     <p className="text-gray-400 text-sm">
-//                                         Don't have an account?{' '}
-//                                         <a href="/register" className="text-purple-400 hover:text-purple-300 font-semibold transition-colors hover:underline">
-//                                             Create one now
-//                                         </a>
-//                                     </p>
-//                                 </div>
-
-//                                 {/* Back Button */}
-//                                 <button
-//                                     type="button"
-//                                     onClick={() => navigate("/")}
-//                                     className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors group"
-//                                 >
-//                                     <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-//                                     Back to Home
-//                                 </button>
-//                             </form>
+//                         {/* Password */}
+//                         <div className="space-y-1.5">
+//                             <div className="flex justify-between items-center px-1">
+//                                 <label className="text-xs font-black text-slate-400 uppercase tracking-widest">Password</label>
+//                                 <a href="#" className="text-[11px] font-bold text-amber-600 hover:text-amber-700">Forgot password?</a>
+//                             </div>
+//                             <div className="relative group">
+//                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-amber-600 transition-colors" />
+//                                 <input
+//                                     type="password"
+//                                     {...register("password", { required: true })}
+//                                     className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 font-medium focus:ring-4 focus:ring-amber-500/10 focus:border-amber-600 outline-none transition-all placeholder:text-slate-400"
+//                                     placeholder="••••••••"
+//                                     disabled={loading}
+//                                 />
+//                             </div>
 //                         </div>
-//                     </div>
+
+//                         {/* Submit Button */}
+//                         <button
+//                             type="submit"
+//                             disabled={loading}
+//                             className="w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold text-sm shadow-xl shadow-slate-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+//                         >
+//                             {loading ? (
+//                                 <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
+//                             ) : (
+//                                 <LogIn className="w-4 h-4 text-amber-500" />
+//                             )}
+//                             {loading ? 'Authenticating...' : 'Sign In to Account'}
+//                         </button>
+
+//                         {/* Footer Links */}
+//                         <div className="pt-8 text-center space-y-4">
+//                             <p className="text-sm text-slate-500 font-medium">
+//                                 Don't have an account?{' '}
+//                                 <a href="/register" className="text-amber-600 font-bold hover:underline underline-offset-4">Join for Free</a>
+//                             </p>
+                            
+//                             <button
+//                                 type="button"
+//                                 onClick={() => navigate("/")}
+//                                 className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-slate-600 transition-colors group"
+//                             >
+//                                 <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+//                                 Return to Gallery
+//                             </button>
+//                         </div>
+//                     </form>
 //                 </div>
 //             </div>
-
-//             <style>{`
-//                 @keyframes shake {
-//                     0%, 100% { transform: translateX(0); }
-//                     25% { transform: translateX(-10px); }
-//                     75% { transform: translateX(10px); }
-//                 }
-                
-//                 .animate-shake {
-//                     animation: shake 0.5s ease-in-out;
-//                 }
-//             `}</style>
 //         </div>
 //     );
 // }
 
+// // Icon helper for the error message
+// function AlertCircleIcon({ size }: { size: number }) {
+//     return (
+//         <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+//     );
+// }
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { backendApi } from "../../../api.ts";
@@ -324,6 +184,8 @@ import { getUserFromToken } from "../../../Auth/auth.ts";
 import type { UserData } from "../../../model/userData.ts";
 import { Palette, Mail, Lock, LogIn, ArrowLeft, Loader2, Sparkle } from "lucide-react";
 import { useState } from "react";
+// 1. SweetAlert2 import කරන්න
+import Swal from 'sweetalert2';
 
 type FormData = {
     email: string;
@@ -356,6 +218,17 @@ export function Login() {
             const user: UserData = getUserFromToken(accessToken);
             localStorage.setItem('username', user.username as string);
             localStorage.setItem('role', user.role as string);
+
+            // 2. සාර්ථක වූ විට පෙන්වන SweetAlert පණිවිඩය
+            await Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                text: `Welcome back, ${user.username}!`,
+                showConfirmButton: false,
+                timer: 2000, // තත්පර 2කින් ඉබේම වැසී යයි
+                background: '#fff',
+                iconColor: '#d97706', // ඔබේ amber-600 වර්ණයට ගැලපෙන ලෙස
+            });
 
             navigate('/');
         } catch (error) {
@@ -396,7 +269,7 @@ export function Login() {
 
                 <div className="relative z-10">
                     <div className="flex items-center gap-2 text-slate-500 text-sm font-bold tracking-widest uppercase">
-                        <Sparkle className="w-4 h-4 text-amber-500" />
+                        <span className="w-4 h-4 text-amber-500"><Sparkle className="w-4 h-4" /></span>
                         Est. 2024 • Artisans Community
                     </div>
                 </div>
@@ -490,7 +363,6 @@ export function Login() {
     );
 }
 
-// Icon helper for the error message
 function AlertCircleIcon({ size }: { size: number }) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
