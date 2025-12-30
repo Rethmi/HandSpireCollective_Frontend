@@ -512,18 +512,33 @@ const UserRegisterForm = () => {
         return null;
     };
 
+    // const registerUser = async (userData: Omit<UserDto, 'id'>) => {
+    //     const response = await fetch('/api/user/save', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(userData),
+    //     });
+    //     if (!response.ok) {
+    //         const errorData = await response.json().catch(() => ({}));
+    //         throw new Error(errorData.error || errorData.message || `Registration failed: ${response.status}`);
+    //     }
+    //     return await response.json();
+    // };
+
     const registerUser = async (userData: Omit<UserDto, 'id'>) => {
-        const response = await fetch('/api/user/save', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData),
-        });
-        if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || errorData.message || `Registration failed: ${response.status}`);
-        }
-        return await response.json();
-    };
+    const response = await fetch('http://localhost:5000/api/user/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Registration failed');
+    }
+
+    return await response.json();
+};
 
     const handleSubmit = async () => {
         const validationError = validateForm();

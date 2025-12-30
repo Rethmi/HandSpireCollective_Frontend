@@ -72,10 +72,12 @@ const singleProjectSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchProjectById.fulfilled, (state, action: PayloadAction<Project>) => {
-                state.loading = false;
-                state.project = action.payload;
-            })
+            // singleProjectSlice.ts ඇතුළත
+.addCase(fetchProjectById.fulfilled, (state, action: PayloadAction<any>) => {
+    state.loading = false;
+    // ඔබේ backend එක { data: {...} } ලෙස එවන්නේ නම් action.payload.data ලෙස භාවිතා කරන්න
+    state.project = action.payload; 
+})
             .addCase(fetchProjectById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message ?? 'Something went wrong';

@@ -1,3 +1,691 @@
+// // import React, { useState, useEffect } from 'react';
+// // import {
+// //     Upload,
+// //     Plus,
+// //     X,
+// //     CheckCircle,
+// //     AlertCircle,
+// //     Sparkles,
+// //     Heart,
+// //     Mail,
+// //     Send,
+// //     Scissors,
+// //     PaintBucket, Palette
+// // } from 'lucide-react';
+// // import { useDispatch, useSelector } from 'react-redux';
+// // import { useNavigate } from 'react-router-dom';
+// // import type { RootState } from '../../../slices/rootReducer';
+// // import { getAllCategories } from '../../../slices/homeSlice';
+// // import { uploadProject, clearUploadState, clearError, testEmail } from '../../../slices/projectUploadSlice';
+// // import type { AppDispatch } from '../../../store/store';
+// // import { getUserFromToken } from '../../../Auth/auth.ts';
+// // import type { UserData } from '../../../model/userData.ts';
+
+// // interface ExtendedUserData extends UserData {
+// //     email: string;
+// //     exp?: number; // JWT expiration timestamp
+// // }
+
+// // interface CategoryData {
+// //     category: string;
+// // }
+
+// // type CategoriesArray = (CategoryData | string)[];
+
+// // const isTokenExpired = (exp?: number): boolean => {
+// //     if (!exp) return false;
+// //     const currentTime = Math.floor(Date.now() / 1000);
+// //     return currentTime >= exp;
+// // };
+
+// // const ProjectUploadForm = () => {
+// //     const dispatch = useDispatch<AppDispatch>();
+// //     const navigate = useNavigate();
+
+// //     const [currentUser, setCurrentUser] = useState<ExtendedUserData | null>(null);
+// //     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+// //     const {
+// //         categories,
+// //         loading: categoriesLoading,
+// //         error: categoriesError
+// //     } = useSelector((state: RootState) => state.categories || state.projectUpload || {}) as {
+// //         categories?: CategoriesArray;
+// //         loading?: boolean;
+// //         error?: string;
+// //     };
+
+// //     const {
+// //         loading: uploadLoading,
+// //         error: uploadError,
+// //         success: uploadSuccess,
+// //         uploadedProject,
+// //         emailSent,
+// //         successMessage
+// //     } = useSelector((state: RootState) => state.projectUpload);
+
+// //     const [formData, setFormData] = useState({
+// //         title: '',
+// //         category: '',
+// //         description: '',
+// //         materials: [''],
+// //         steps: [''],
+// //         imageUrl: '',
+// //         author: ''
+// //     });
+
+// //     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+// //     const [testEmailAddress, setTestEmailAddress] = useState('');
+// //     const [showEmailTest, setShowEmailTest] = useState(false);
+
+// //     useEffect(() => {
+// //         const checkAuthentication = () => {
+// //             const token = localStorage.getItem('token');
+
+// //             if (!token) {
+// //                 alert('Please log in to upload projects');
+// //                 navigate('/login');
+// //                 return;
+// //             }
+
+// //             try {
+// //                 const userData = getUserFromToken(token) as ExtendedUserData;
+
+// //                 if (isTokenExpired(userData.exp)) {
+// //                     localStorage.removeItem('token');
+// //                     localStorage.removeItem('refreshToken');
+// //                     localStorage.removeItem('username');
+// //                     localStorage.removeItem('role');
+// //                     alert('Your session has expired after 24 hours. Please log in again.');
+// //                     navigate('/login');
+// //                     return;
+// //                 }
+
+// //                 if (userData && userData.email) {
+// //                     setCurrentUser(userData);
+// //                     setIsAuthenticated(true);
+// //                 } else {
+// //                     localStorage.removeItem('token');
+// //                     localStorage.removeItem('refreshToken');
+// //                     localStorage.removeItem('username');
+// //                     localStorage.removeItem('role');
+// //                     alert('Your session has expired. Please log in again.');
+// //                     navigate('/login');
+// //                 }
+// //             } catch (error) {
+// //                 console.error('Token parsing error:', error);
+// //                 localStorage.removeItem('token');
+// //                 localStorage.removeItem('refreshToken');
+// //                 localStorage.removeItem('username');
+// //                 localStorage.removeItem('role');
+// //                 alert('Invalid session. Please log in again.');
+// //                 navigate('/login');
+// //             }
+// //         };
+
+// //         checkAuthentication();
+
+// //         const tokenCheckInterval = setInterval(() => {
+// //             const token = localStorage.getItem('token');
+// //             if (token) {
+// //                 try {
+// //                     const userData = getUserFromToken(token) as ExtendedUserData;
+// //                     if (isTokenExpired(userData.exp)) {
+// //                         localStorage.removeItem('token');
+// //                         localStorage.removeItem('refreshToken');
+// //                         localStorage.removeItem('username');
+// //                         localStorage.removeItem('role');
+// //                         alert('Your session has expired after 24 hours. Please log in again.');
+// //                         navigate('/login');
+// //                     }
+// //                 } catch (error) {
+// //                     console.error('Token validation error:', error);
+// //                     localStorage.removeItem('token');
+// //                     localStorage.removeItem('refreshToken');
+// //                     localStorage.removeItem('username');
+// //                     localStorage.removeItem('role');
+// //                     navigate('/login');
+// //                 }
+// //             }
+// //         }, 5 * 60 * 1000);
+
+// //         return () => {
+// //             clearInterval(tokenCheckInterval);
+// //         };
+// //     }, [navigate]);
+
+// //     useEffect(() => {
+// //         if (isAuthenticated && (!categories || categories.length === 0) && !categoriesLoading) {
+// //             dispatch(getAllCategories());
+// //         }
+// //     }, [dispatch, categories, categoriesLoading, isAuthenticated]);
+
+// //     useEffect(() => {
+// //         if (uploadSuccess && uploadedProject) {
+// //             setShowSuccessMessage(true);
+
+// //             setFormData({
+// //                 title: '',
+// //                 category: '',
+// //                 description: '',
+// //                 materials: [''],
+// //                 steps: [''],
+// //                 imageUrl: '',
+// //                 author: ''
+// //             });
+
+// //             const timer = setTimeout(() => {
+// //                 setShowSuccessMessage(false);
+// //                 dispatch(clearUploadState());
+// //             }, 8000);
+
+// //             return () => clearTimeout(timer);
+// //         }
+// //         return undefined;
+// //     }, [uploadSuccess, uploadedProject, dispatch]);
+
+// //     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+// //         setFormData({...formData, [e.target.name]: e.target.value});
+// //         if (uploadError) {
+// //             dispatch(clearError());
+// //         }
+// //     };
+
+// //     const updateArray = (index: number, value: string, field: 'materials' | 'steps') => {
+// //         const newArray = [...formData[field]];
+// //         newArray[index] = value;
+// //         setFormData({...formData, [field]: newArray});
+// //     };
+
+// //     const addItem = (field: 'materials' | 'steps') => {
+// //         setFormData({...formData, [field]: [...formData[field], '']});
+// //     };
+
+// //     const removeItem = (index: number, field: 'materials' | 'steps') => {
+// //         if (formData[field].length > 1) {
+// //             const newArray = formData[field].filter((_: string, i: number) => i !== index);
+// //             setFormData({...formData, [field]: newArray});
+// //         }
+// //     };
+
+// //     const validateForm = () => {
+// //         const requiredFields = ['title', 'category', 'description', 'author'];
+// //         const emptyFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
+
+// //         if (emptyFields.length > 0) {
+// //             return `Please fill in: ${emptyFields.join(', ')}`;
+// //         }
+
+// //         const validMaterials = formData.materials.filter(m => m.trim());
+// //         const validSteps = formData.steps.filter(s => s.trim());
+
+// //         if (validMaterials.length === 0) {
+// //             return 'Please add at least one material';
+// //         }
+
+// //         if (validSteps.length === 0) {
+// //             return 'Please add at least one step';
+// //         }
+
+// //         return null;
+// //     };
+
+// //     const handleSubmit = async () => {
+// //         if (!isAuthenticated || !currentUser) {
+// //             alert('Please log in to upload projects');
+// //             navigate('/login');
+// //             return;
+// //         }
+
+// //         const token = localStorage.getItem('token');
+// //         if (token) {
+// //             try {
+// //                 const userData = getUserFromToken(token) as ExtendedUserData;
+// //                 if (isTokenExpired(userData.exp)) {
+// //                     localStorage.removeItem('token');
+// //                     localStorage.removeItem('refreshToken');
+// //                     localStorage.removeItem('username');
+// //                     localStorage.removeItem('role');
+// //                     alert('Your session has expired. Please log in again.');
+// //                     navigate('/login');
+// //                     return;
+// //                 }
+// //             } catch (error) {
+// //                 console.error('Token validation error:', error);
+// //                 alert('Session validation failed. Please log in again.');
+// //                 navigate('/login');
+// //                 return;
+// //             }
+// //         }
+
+// //         const validationError = validateForm();
+// //         if (validationError) {
+// //             alert(validationError);
+// //             return;
+// //         }
+
+// //         const sanitizedImageUrl = formData.imageUrl.trim().replace(/['"]/g, '');
+
+// //         const projectData = {
+// //             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+// //             title: formData.title,
+// //             category: formData.category,
+// //             description: formData.description,
+// //             materials: formData.materials.filter((m: string) => m.trim()),
+// //             steps: formData.steps.filter((s: string) => s.trim()),
+// //             imageUrl: sanitizedImageUrl,
+// //             author: formData.author,
+// //             uploadedUserEmail: currentUser.email
+// //         };
+
+// //         try {
+// //             await dispatch(uploadProject(projectData));
+// //         } catch (error) {
+// //             console.error('Upload error:', error);
+// //         }
+// //     };
+
+// //     const handleTestEmail = async () => {
+// //         if (!testEmailAddress) {
+// //             alert('Please enter an email address');
+// //             return;
+// //         }
+
+// //         try {
+// //             await dispatch(testEmail(testEmailAddress));
+// //             setTestEmailAddress('');
+// //             alert('Test email sent! Check your inbox.');
+// //         } catch (error) {
+// //             console.error('Test email error:', error);
+// //             alert('Failed to send test email');
+// //         }
+// //     };
+
+// //     if (!isAuthenticated || !currentUser) {
+// //         return (
+// //             <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 via-purple-50 to-blue-100 flex items-center justify-center p-4">
+// //                 <div className="bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl border border-white/30 p-8 text-center">
+// //                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fuchsia-600 mx-auto mb-4"></div>
+// //                     <p className="text-gray-700 font-medium">Checking authentication...</p>
+// //                 </div>
+// //             </div>
+// //         );
+// //     }
+
+// //     return (
+// //         <div className="min-h-screen bg-gradient-to-br from-fuchsia-100 via-purple-100 to-blue-200 p-4">
+
+// //             <div className="absolute inset-0 overflow-hidden pointer-events-none">
+// //                 <div className="absolute top-20 left-10 text-pink-500/20 animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
+// //                     <Scissors className="w-16 h-16" />
+// //                 </div>
+// //                 <div className="absolute top-40 right-20 text-purple-500/20 animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}>
+// //                     <PaintBucket className="w-20 h-20" />
+// //                 </div>
+// //                 <div className="absolute bottom-32 left-1/4 text-blue-500/20 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3.5s' }}>
+// //                     <Palette className="w-14 h-14" />
+// //                 </div>
+// //                 <div className="absolute top-1/3 right-1/4 text-pink-500/20 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3.8s' }}>
+// //                     <Sparkles className="w-12 h-12" />
+// //                 </div>
+// //                 <div className="absolute bottom-20 right-1/3 text-purple-500/20 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '4.2s' }}>
+// //                     <Scissors className="w-10 h-10" />
+// //                 </div>
+// //             </div>
+
+// //             {/* Glowing orbs */}
+// //             <div className="absolute top-20 left-20 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
+// //             <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl"></div>
+// //             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
+
+// //             <div className="max-w-5xl mx-auto">
+// //                 {/*  Success Message */}
+// //                 {showSuccessMessage && uploadedProject && (
+// //                     <div className="mb-8 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 text-white p-6 rounded-3xl shadow-2xl animate-bounce">
+// //                         <div className="flex items-center gap-4">
+// //                             <div className="bg-white/20 p-2 rounded-full">
+// //                                 <CheckCircle size={28} />
+// //                             </div>
+// //                             <div className="flex-1">
+// //                                 <h3 className="font-bold text-xl flex items-center gap-2">
+// //                                     <Sparkles size={20} />
+// //                                     Project Created Successfully!
+// //                                     <Heart size={20} className="text-pink-200" />
+// //                                 </h3>
+// //                                 <p className="text-green-100 text-sm font-medium mb-2">
+// //                                     "{uploadedProject.title}" has been shared with the community!
+// //                                 </p>
+// //                                 {/* Email Status  */}
+// //                                 <div className="flex items-center gap-2 text-sm">
+// //                                     <Mail size={16} />
+// //                                     <span className={emailSent ? "text-green-100" : "text-yellow-200"}>
+// //                                         {emailSent
+// //                                             ? "📧 Confirmation email sent to your inbox!"
+// //                                             : "📤 Sending confirmation email..."}
+// //                                     </span>
+// //                                 </div>
+// //                                 {successMessage && (
+// //                                     <p className="text-xs text-green-200 mt-1">{successMessage}</p>
+// //                                 )}
+// //                             </div>
+// //                         </div>
+// //                     </div>
+// //                 )}
+
+// //                 {/* Error Message */}
+// //                 {uploadError && (
+// //                     <div className="mb-8 bg-gradient-to-r from-red-500 to-pink-500 text-white p-6 rounded-3xl shadow-2xl">
+// //                         <div className="flex items-center justify-between">
+// //                             <div className="flex items-center gap-4">
+// //                                 <div className="bg-white/20 p-2 rounded-full">
+// //                                     <AlertCircle size={24} />
+// //                                 </div>
+// //                                 <div>
+// //                                     <h3 className="font-bold text-lg">Upload Failed</h3>
+// //                                     <p className="text-red-100 text-sm">{uploadError}</p>
+// //                                 </div>
+// //                             </div>
+// //                             <button
+// //                                 onClick={() => dispatch(clearError())}
+// //                                 className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-all duration-200"
+// //                             >
+// //                                 <X size={20} />
+// //                             </button>
+// //                         </div>
+// //                     </div>
+// //                 )}
+
+// //                 {/* Main Form Container */}
+// //                 <div className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/40 overflow-hidden">
+
+
+// //                     <div className="bg-gradient-to-r from-fuchsia-600 via-purple-700 to-blue-600 p-8 relative overflow-hidden">
+// //                         <div className="absolute top-0 left-0 w-full h-full">
+// //                             <div className="absolute top-4 left-8 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+// //                             <div className="absolute top-12 right-12 w-16 h-16 bg-fuchsia-300/20 rounded-full animate-bounce"></div>
+// //                             <div className="absolute bottom-4 left-1/3 w-12 h-12 bg-purple-300/20 rounded-full animate-pulse"></div>
+// //                         </div>
+
+// //                         <div className="relative z-10 flex justify-between items-center">
+// //                             <div>
+// //                                 <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
+// //                                     <Sparkles className="text-yellow-300" size={32} />
+// //                                     Create New Project
+// //                                     <Heart className="text-pink-300" size={28} />
+// //                                 </h1>
+// //                                 <p className="text-purple-100 text-lg font-medium">
+// //                                     Share your amazing ideas with the world
+// //                                 </p>
+// //                             </div>
+
+// //                             <div className="flex items-center gap-4">
+// //                                 <div className="text-right">
+// //                                     <div className="flex items-center gap-3 mb-2">
+// //                                         <div>
+// //                                             <p className="font-bold text-white text-lg">Welcome, {currentUser.username || 'Creator'}!</p>
+// //                                         </div>
+// //                                     </div>
+// //                                     {/*{currentUser.exp && (*/}
+// //                                     {/*    <p className="text-xs text-purple-300">*/}
+// //                                     {/*        Session expires: {new Date(currentUser.exp * 1000).toLocaleString()}*/}
+// //                                     {/*    </p>*/}
+// //                                     {/*)}*/}
+
+// //                                     {/*{process.env.NODE_ENV === 'development' && (*/}
+// //                                     {/*    <button*/}
+// //                                     {/*        onClick={() => setShowEmailTest(!showEmailTest)}*/}
+// //                                     {/*        className="mt-2 text-xs text-purple-200 hover:text-white underline"*/}
+// //                                     {/*    >*/}
+// //                                     {/*        Test Email 📧*/}
+// //                                     {/*    </button>*/}
+// //                                     {/*)}*/}
+// //                                 </div>
+// //                             </div>
+// //                         </div>
+
+// //                         {/* Email Test Section */}
+// //                         {showEmailTest && process.env.NODE_ENV === 'development' && (
+// //                             <div className="mt-6 p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+// //                                 <h4 className="text-white font-medium mb-2">Test Email Functionality</h4>
+// //                                 <div className="flex gap-2">
+// //                                     <input
+// //                                         type="email"
+// //                                         value={testEmailAddress}
+// //                                         onChange={(e) => setTestEmailAddress(e.target.value)}
+// //                                         placeholder="Enter email to test"
+// //                                         className="flex-1 px-3 py-2 rounded-lg text-gray-800 text-sm"
+// //                                     />
+// //                                     <button
+// //                                         onClick={handleTestEmail}
+// //                                         disabled={uploadLoading}
+// //                                         className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg text-sm flex items-center gap-2 disabled:opacity-50"
+// //                                     >
+// //                                         <Send size={14} />
+// //                                         Send Test
+// //                                     </button>
+// //                                 </div>
+// //                             </div>
+// //                         )}
+// //                     </div>
+
+// //                     {/* Form Content */}
+// //                     <div className="p-8 space-y-8" style={{ fontFamily: "'Inter', 'Segoe UI', system-ui, sans-serif" }}>
+
+// //                         {/* Project Title */}
+// //                         <div className="group">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Project Title
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                             </label>
+// //                             <input
+// //                                 name="title"
+// //                                 value={formData.title}
+// //                                 onChange={handleInputChange}
+// //                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-purple-50 border-3 border-purple-200 rounded-2xl focus:border-fuchsia-400 focus:shadow-lg focus:shadow-fuchsia-200/50 transition-all duration-300 hover:border-purple-300 hover:shadow-md"
+// //                                 placeholder="What's your amazing project called? "
+// //                                 disabled={uploadLoading}
+// //                                 required
+// //                             />
+// //                         </div>
+
+// //                         {/* Category */}
+// //                         <div className="group">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Category
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                                 {categoriesLoading && (
+// //                                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-fuchsia-600"></div>
+// //                                 )}
+// //                             </label>
+// //                             <select
+// //                                 name="category"
+// //                                 value={formData.category}
+// //                                 onChange={handleInputChange}
+// //                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-blue-50 border-3 border-blue-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-blue-300 hover:shadow-md"
+// //                                 disabled={categoriesLoading || uploadLoading}
+// //                                 required
+// //                             >
+// //                                 <option value="">
+// //                                     {categoriesLoading
+// //                                         ? 'Loading categories...'
+// //                                         : categoriesError
+// //                                             ? 'Error loading categories'
+// //                                             : 'Choose your category... '
+// //                                     }
+// //                                 </option>
+// //                                 {!categoriesLoading && !categoriesError && categories && categories.map((categoryObj: CategoryData | string, index: number) => (
+// //                                     <option key={index} value={typeof categoryObj === 'string' ? categoryObj : categoryObj.category}>
+// //                                         {typeof categoryObj === 'string' ? categoryObj : categoryObj.category}
+// //                                     </option>
+// //                                 ))}
+// //                             </select>
+// //                             {categoriesError && (
+// //                                 <p className="text-sm text-red-500 mt-2">
+// //                                     Failed to load categories. Please refresh the page.
+// //                                 </p>
+// //                             )}
+// //                         </div>
+
+// //                         {/* Author */}
+// //                         <div className="group">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Author
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                             </label>
+// //                             <input
+// //                                 name="author"
+// //                                 value={formData.author}
+// //                                 onChange={handleInputChange}
+// //                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-fuchsia-50 border-3 border-fuchsia-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-fuchsia-300 hover:shadow-md"
+// //                                 placeholder="Who's the creative genius behind this? "
+// //                                 disabled={uploadLoading}
+// //                                 required
+// //                             />
+// //                         </div>
+
+// //                         {/* Description */}
+// //                         <div className="group">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Description
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                             </label>
+// //                             <textarea
+// //                                 name="description"
+// //                                 value={formData.description}
+// //                                 onChange={handleInputChange}
+// //                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-purple-50 border-3 border-purple-200 rounded-2xl focus:border-fuchsia-400 focus:shadow-lg focus:shadow-fuchsia-200/50 transition-all duration-300 hover:border-purple-300 hover:shadow-md resize-none"
+// //                                 rows={4}
+// //                                 placeholder="Tell us what makes your project special... "
+// //                                 disabled={uploadLoading}
+// //                                 required
+// //                             />
+// //                         </div>
+
+// //                         {/* Image URL */}
+// //                         <div className="group">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Image URL
+// //                             </label>
+// //                             <input
+// //                                 name="imageUrl"
+// //                                 value={formData.imageUrl}
+// //                                 onChange={handleInputChange}
+// //                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-blue-50 border-3 border-blue-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-blue-300 hover:shadow-md"
+// //                                 placeholder="https://your-awesome-image.jpg "
+// //                                 disabled={uploadLoading}
+// //                             />
+// //                         </div>
+
+// //                         {/* Materials Section */}
+// //                         <div className="bg-gradient-to-br from-orange-50 via-pink-50 to-rose-50 p-6 rounded-3xl border-3 border-orange-200 shadow-lg">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-4 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Materials Needed
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                             </label>
+// //                             {formData.materials.map((material: string, index: number) => (
+// //                                 <div key={index} className="flex gap-3 mb-3">
+// //                                     <input
+// //                                         value={material}
+// //                                         onChange={(e) => updateArray(index, e.target.value, 'materials')}
+// //                                         className="flex-1 p-3 text-base bg-white border-2 border-orange-300 rounded-xl focus:border-pink-400 focus:shadow-lg focus:shadow-pink-200/30 transition-all duration-200"
+// //                                         placeholder={`Material ${index + 1} (e.g., Wood, Paint, Screws...) 🔨`}
+// //                                         disabled={uploadLoading}
+// //                                     />
+// //                                     {formData.materials.length > 1 && (
+// //                                         <button
+// //                                             onClick={() => removeItem(index, 'materials')}
+// //                                             className="p-3 text-red-500 hover:bg-red-100 rounded-xl transition-all duration-200 border-2 border-red-200 hover:border-red-300"
+// //                                             disabled={uploadLoading}
+// //                                         >
+// //                                             <X size={18} />
+// //                                         </button>
+// //                                     )}
+// //                                 </div>
+// //                             ))}
+// //                             <button
+// //                                 onClick={() => addItem('materials')}
+// //                                 className="flex items-center gap-2 px-6 py-3 text-base text-orange-600 bg-white hover:bg-orange-50 rounded-xl transition-all duration-200 font-bold border-2 border-orange-200 hover:border-orange-300 shadow-md hover:shadow-lg disabled:opacity-50"
+// //                                 disabled={uploadLoading}
+// //                             >
+// //                                 <Plus size={18} /> Add Another Material
+// //                             </button>
+// //                         </div>
+
+// //                         {/* Steps Section */}
+// //                         <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-6 rounded-3xl border-3 border-green-200 shadow-lg">
+// //                             <label className="block text-lg font-bold text-gray-800 mb-4 flex items-center gap-3">
+// //                                 <span className="text-2xl"></span>
+// //                                 Step-by-Step Instructions
+// //                                 <span className="text-red-500 text-xl">*</span>
+// //                             </label>
+// //                             {formData.steps.map((step: string, index: number) => (
+// //                                 <div key={index} className="flex gap-3 mb-4">
+// //                                     <div className="mt-2 px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm rounded-full min-w-[36px] text-center font-bold shadow-lg">
+// //                                         {index + 1}
+// //                                     </div>
+// //                                     <textarea
+// //                                         value={step}
+// //                                         onChange={(e) => updateArray(index, e.target.value, 'steps')}
+// //                                         className="flex-1 p-3 text-base bg-white border-2 border-green-300 rounded-xl focus:border-emerald-400 focus:shadow-lg focus:shadow-emerald-200/30 transition-all duration-200 resize-none"
+// //                                         rows={3}
+// //                                         placeholder={`Step ${index + 1}: Describe what to do... `}
+// //                                         disabled={uploadLoading}
+// //                                     />
+// //                                     {formData.steps.length > 1 && (
+// //                                         <button
+// //                                             onClick={() => removeItem(index, 'steps')}
+// //                                             className="mt-2 p-3 text-red-500 hover:bg-red-100 rounded-xl transition-all duration-200 border-2 border-red-200 hover:border-red-300"
+// //                                             disabled={uploadLoading}
+// //                                         >
+// //                                             <X size={18} />
+// //                                         </button>
+// //                                     )}
+// //                                 </div>
+// //                             ))}
+// //                             <button
+// //                                 onClick={() => addItem('steps')}
+// //                                 className="flex items-center gap-2 px-6 py-3 text-base text-green-600 bg-white hover:bg-green-50 rounded-xl transition-all duration-200 font-bold border-2 border-green-200 hover:border-green-300 shadow-md hover:shadow-lg disabled:opacity-50"
+// //                                 disabled={uploadLoading}
+// //                             >
+// //                                 <Plus size={18} /> Add Another Step
+// //                             </button>
+// //                         </div>
+
+// //                         {/* Submit Button */}
+// //                         <div className="pt-6 flex flex-col items-center">
+// //                             <button
+// //                                 type="button"
+// //                                 onClick={handleSubmit}
+// //                                 disabled={uploadLoading || categoriesLoading}
+// //                                 className="w-[250px] bg-gradient-to-r from-fuchsia-600 via-purple-700 to-blue-600 hover:from-fuchsia-700 hover:via-purple-800 hover:to-blue-700 disabled:from-gray-400 disabled:via-gray-500 disabled:to-gray-600 text-white font-bold py-4 rounded-3xl transition-all duration-300 flex items-center justify-center gap-4 text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 disabled:transform-none border border-white/20"
+// //                             >
+// //                                 {uploadLoading ? (
+// //                                     <>
+// //                                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+// //                                         <span>Creating magic... ✨</span>
+// //                                     </>
+// //                                 ) : (
+// //                                     <>
+// //                                         <Upload size={20} />
+// //                                         <span>Launch Your Project!</span>
+// //                                     </>
+// //                                 )}
+// //                             </button>
+// //                         </div>
+// //                     </div>
+// //                 </div>
+// //             </div>
+// //         </div>
+// //     );
+// // };
+
+// // export default ProjectUploadForm;
 // import React, { useState, useEffect } from 'react';
 // import {
 //     Upload,
@@ -6,11 +694,14 @@
 //     CheckCircle,
 //     AlertCircle,
 //     Sparkles,
-//     Heart,
 //     Mail,
 //     Send,
 //     Scissors,
-//     PaintBucket, Palette
+//     Palette,
+//     FileText,
+//     Image as ImageIcon,
+//     User,
+//     Loader2
 // } from 'lucide-react';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
@@ -23,7 +714,7 @@
 
 // interface ExtendedUserData extends UserData {
 //     email: string;
-//     exp?: number; // JWT expiration timestamp
+//     exp?: number;
 // }
 
 // interface CategoryData {
@@ -49,19 +740,14 @@
 //         categories,
 //         loading: categoriesLoading,
 //         error: categoriesError
-//     } = useSelector((state: RootState) => state.categories || state.projectUpload || {}) as {
-//         categories?: CategoriesArray;
-//         loading?: boolean;
-//         error?: string;
-//     };
+//     } = useSelector((state: RootState) => state.categories);
 
 //     const {
 //         loading: uploadLoading,
 //         error: uploadError,
 //         success: uploadSuccess,
 //         uploadedProject,
-//         emailSent,
-//         successMessage
+//         emailSent
 //     } = useSelector((state: RootState) => state.projectUpload);
 
 //     const [formData, setFormData] = useState({
@@ -75,83 +761,32 @@
 //     });
 
 //     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-//     const [testEmailAddress, setTestEmailAddress] = useState('');
-//     const [showEmailTest, setShowEmailTest] = useState(false);
 
+//     // --- LOGIC REMAINS EXACTLY AS PROVIDED ---
 //     useEffect(() => {
 //         const checkAuthentication = () => {
 //             const token = localStorage.getItem('token');
-
 //             if (!token) {
-//                 alert('Please log in to upload projects');
 //                 navigate('/login');
 //                 return;
 //             }
-
 //             try {
 //                 const userData = getUserFromToken(token) as ExtendedUserData;
-
 //                 if (isTokenExpired(userData.exp)) {
-//                     localStorage.removeItem('token');
-//                     localStorage.removeItem('refreshToken');
-//                     localStorage.removeItem('username');
-//                     localStorage.removeItem('role');
-//                     alert('Your session has expired after 24 hours. Please log in again.');
+//                     localStorage.clear();
 //                     navigate('/login');
 //                     return;
 //                 }
-
 //                 if (userData && userData.email) {
 //                     setCurrentUser(userData);
 //                     setIsAuthenticated(true);
-//                 } else {
-//                     localStorage.removeItem('token');
-//                     localStorage.removeItem('refreshToken');
-//                     localStorage.removeItem('username');
-//                     localStorage.removeItem('role');
-//                     alert('Your session has expired. Please log in again.');
-//                     navigate('/login');
 //                 }
 //             } catch (error) {
-//                 console.error('Token parsing error:', error);
-//                 localStorage.removeItem('token');
-//                 localStorage.removeItem('refreshToken');
-//                 localStorage.removeItem('username');
-//                 localStorage.removeItem('role');
-//                 alert('Invalid session. Please log in again.');
+//                 localStorage.clear();
 //                 navigate('/login');
 //             }
 //         };
-
 //         checkAuthentication();
-
-//         const tokenCheckInterval = setInterval(() => {
-//             const token = localStorage.getItem('token');
-//             if (token) {
-//                 try {
-//                     const userData = getUserFromToken(token) as ExtendedUserData;
-//                     if (isTokenExpired(userData.exp)) {
-//                         localStorage.removeItem('token');
-//                         localStorage.removeItem('refreshToken');
-//                         localStorage.removeItem('username');
-//                         localStorage.removeItem('role');
-//                         alert('Your session has expired after 24 hours. Please log in again.');
-//                         navigate('/login');
-//                     }
-//                 } catch (error) {
-//                     console.error('Token validation error:', error);
-//                     localStorage.removeItem('token');
-//                     localStorage.removeItem('refreshToken');
-//                     localStorage.removeItem('username');
-//                     localStorage.removeItem('role');
-//                     navigate('/login');
-//                 }
-//             }
-//         }, 5 * 60 * 1000);
-
-//         return () => {
-//             clearInterval(tokenCheckInterval);
-//         };
 //     }, [navigate]);
 
 //     useEffect(() => {
@@ -163,32 +798,18 @@
 //     useEffect(() => {
 //         if (uploadSuccess && uploadedProject) {
 //             setShowSuccessMessage(true);
-
-//             setFormData({
-//                 title: '',
-//                 category: '',
-//                 description: '',
-//                 materials: [''],
-//                 steps: [''],
-//                 imageUrl: '',
-//                 author: ''
-//             });
-
+//             setFormData({ title: '', category: '', description: '', materials: [''], steps: [''], imageUrl: '', author: '' });
 //             const timer = setTimeout(() => {
 //                 setShowSuccessMessage(false);
 //                 dispatch(clearUploadState());
 //             }, 8000);
-
 //             return () => clearTimeout(timer);
 //         }
-//         return undefined;
 //     }, [uploadSuccess, uploadedProject, dispatch]);
 
 //     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
 //         setFormData({...formData, [e.target.name]: e.target.value});
-//         if (uploadError) {
-//             dispatch(clearError());
-//         }
+//         if (uploadError) dispatch(clearError());
 //     };
 
 //     const updateArray = (index: number, value: string, field: 'materials' | 'steps') => {
@@ -203,7 +824,7 @@
 
 //     const removeItem = (index: number, field: 'materials' | 'steps') => {
 //         if (formData[field].length > 1) {
-//             const newArray = formData[field].filter((_: string, i: number) => i !== index);
+//             const newArray = formData[field].filter((_, i) => i !== index);
 //             setFormData({...formData, [field]: newArray});
 //         }
 //     };
@@ -211,471 +832,194 @@
 //     const validateForm = () => {
 //         const requiredFields = ['title', 'category', 'description', 'author'];
 //         const emptyFields = requiredFields.filter(field => !formData[field as keyof typeof formData]);
-
-//         if (emptyFields.length > 0) {
-//             return `Please fill in: ${emptyFields.join(', ')}`;
-//         }
-
-//         const validMaterials = formData.materials.filter(m => m.trim());
-//         const validSteps = formData.steps.filter(s => s.trim());
-
-//         if (validMaterials.length === 0) {
-//             return 'Please add at least one material';
-//         }
-
-//         if (validSteps.length === 0) {
-//             return 'Please add at least one step';
-//         }
-
+//         if (emptyFields.length > 0) return `Please fill in: ${emptyFields.join(', ')}`;
+//         if (formData.materials.filter(m => m.trim()).length === 0) return 'Please add at least one material';
+//         if (formData.steps.filter(s => s.trim()).length === 0) return 'Please add at least one step';
 //         return null;
 //     };
 
 //     const handleSubmit = async () => {
-//         if (!isAuthenticated || !currentUser) {
-//             alert('Please log in to upload projects');
-//             navigate('/login');
-//             return;
-//         }
-
-//         const token = localStorage.getItem('token');
-//         if (token) {
-//             try {
-//                 const userData = getUserFromToken(token) as ExtendedUserData;
-//                 if (isTokenExpired(userData.exp)) {
-//                     localStorage.removeItem('token');
-//                     localStorage.removeItem('refreshToken');
-//                     localStorage.removeItem('username');
-//                     localStorage.removeItem('role');
-//                     alert('Your session has expired. Please log in again.');
-//                     navigate('/login');
-//                     return;
-//                 }
-//             } catch (error) {
-//                 console.error('Token validation error:', error);
-//                 alert('Session validation failed. Please log in again.');
-//                 navigate('/login');
-//                 return;
-//             }
-//         }
-
 //         const validationError = validateForm();
-//         if (validationError) {
-//             alert(validationError);
-//             return;
-//         }
-
+//         if (validationError) { alert(validationError); return; }
 //         const sanitizedImageUrl = formData.imageUrl.trim().replace(/['"]/g, '');
-
 //         const projectData = {
-//             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-//             title: formData.title,
+//             id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+//             title: formData.title.trim(),
 //             category: formData.category,
-//             description: formData.description,
-//             materials: formData.materials.filter((m: string) => m.trim()),
-//             steps: formData.steps.filter((s: string) => s.trim()),
+//             description: formData.description.trim(),
+//             author: formData.author.trim(),
 //             imageUrl: sanitizedImageUrl,
-//             author: formData.author,
-//             uploadedUserEmail: currentUser.email
+//             materials: formData.materials.map(m => m.trim()).filter(m => m !== ""),
+//             steps: formData.steps.map(s => s.trim()).filter(s => s !== ""),
+//             uploadedUserEmail: currentUser?.email || ""
 //         };
-
-//         try {
-//             await dispatch(uploadProject(projectData));
-//         } catch (error) {
-//             console.error('Upload error:', error);
-//         }
+//         dispatch(uploadProject(projectData));
 //     };
 
-//     const handleTestEmail = async () => {
-//         if (!testEmailAddress) {
-//             alert('Please enter an email address');
-//             return;
-//         }
-
-//         try {
-//             await dispatch(testEmail(testEmailAddress));
-//             setTestEmailAddress('');
-//             alert('Test email sent! Check your inbox.');
-//         } catch (error) {
-//             console.error('Test email error:', error);
-//             alert('Failed to send test email');
-//         }
-//     };
-
-//     if (!isAuthenticated || !currentUser) {
-//         return (
-//             <div className="min-h-screen bg-gradient-to-br from-fuchsia-50 via-purple-50 to-blue-100 flex items-center justify-center p-4">
-//                 <div className="bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl border border-white/30 p-8 text-center">
-//                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fuchsia-600 mx-auto mb-4"></div>
-//                     <p className="text-gray-700 font-medium">Checking authentication...</p>
-//                 </div>
-//             </div>
-//         );
-//     }
+//     if (!isAuthenticated || !currentUser) return null;
 
 //     return (
-//         <div className="min-h-screen bg-gradient-to-br from-fuchsia-100 via-purple-100 to-blue-200 p-4">
+//         <div className="min-h-screen bg-slate-50 py-10 px-4">
+//             <div className="max-w-4xl mx-auto">
+                
+//                 {/* Header */}
+//                 <div className="mb-8 text-center">
+//                     <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-amber-100">
+//                         <Sparkles size={12} /> Share Your Craft
+//                     </div>
+//                     <h1 className="text-3xl font-black text-slate-900 tracking-tight">Create New Project</h1>
+//                     <p className="text-slate-500 text-sm mt-2 font-medium">Publish your creative work to the global gallery</p>
+//                 </div>
 
-//             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-//                 <div className="absolute top-20 left-10 text-pink-500/20 animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
-//                     <Scissors className="w-16 h-16" />
-//                 </div>
-//                 <div className="absolute top-40 right-20 text-purple-500/20 animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}>
-//                     <PaintBucket className="w-20 h-20" />
-//                 </div>
-//                 <div className="absolute bottom-32 left-1/4 text-blue-500/20 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3.5s' }}>
-//                     <Palette className="w-14 h-14" />
-//                 </div>
-//                 <div className="absolute top-1/3 right-1/4 text-pink-500/20 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3.8s' }}>
-//                     <Sparkles className="w-12 h-12" />
-//                 </div>
-//                 <div className="absolute bottom-20 right-1/3 text-purple-500/20 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '4.2s' }}>
-//                     <Scissors className="w-10 h-10" />
-//                 </div>
-//             </div>
-
-//             {/* Glowing orbs */}
-//             <div className="absolute top-20 left-20 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
-//             <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl"></div>
-//             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl"></div>
-
-//             <div className="max-w-5xl mx-auto">
-//                 {/*  Success Message */}
-//                 {showSuccessMessage && uploadedProject && (
-//                     <div className="mb-8 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 text-white p-6 rounded-3xl shadow-2xl animate-bounce">
+//                 {/* Notifications */}
+//                 {showSuccessMessage && (
+//                     <div className="mb-6 bg-slate-900 text-white p-5 rounded-2xl shadow-xl border border-amber-500/20 animate-in fade-in zoom-in duration-300">
 //                         <div className="flex items-center gap-4">
-//                             <div className="bg-white/20 p-2 rounded-full">
-//                                 <CheckCircle size={28} />
+//                             <div className="bg-amber-500 p-2 rounded-xl">
+//                                 <CheckCircle size={24} className="text-slate-900" />
 //                             </div>
-//                             <div className="flex-1">
-//                                 <h3 className="font-bold text-xl flex items-center gap-2">
-//                                     <Sparkles size={20} />
-//                                     Project Created Successfully!
-//                                     <Heart size={20} className="text-pink-200" />
-//                                 </h3>
-//                                 <p className="text-green-100 text-sm font-medium mb-2">
-//                                     "{uploadedProject.title}" has been shared with the community!
-//                                 </p>
-//                                 {/* Email Status  */}
-//                                 <div className="flex items-center gap-2 text-sm">
-//                                     <Mail size={16} />
-//                                     <span className={emailSent ? "text-green-100" : "text-yellow-200"}>
-//                                         {emailSent
-//                                             ? "📧 Confirmation email sent to your inbox!"
-//                                             : "📤 Sending confirmation email..."}
-//                                     </span>
-//                                 </div>
-//                                 {successMessage && (
-//                                     <p className="text-xs text-green-200 mt-1">{successMessage}</p>
-//                                 )}
-//                             </div>
-//                         </div>
-//                     </div>
-//                 )}
-
-//                 {/* Error Message */}
-//                 {uploadError && (
-//                     <div className="mb-8 bg-gradient-to-r from-red-500 to-pink-500 text-white p-6 rounded-3xl shadow-2xl">
-//                         <div className="flex items-center justify-between">
-//                             <div className="flex items-center gap-4">
-//                                 <div className="bg-white/20 p-2 rounded-full">
-//                                     <AlertCircle size={24} />
-//                                 </div>
-//                                 <div>
-//                                     <h3 className="font-bold text-lg">Upload Failed</h3>
-//                                     <p className="text-red-100 text-sm">{uploadError}</p>
-//                                 </div>
-//                             </div>
-//                             <button
-//                                 onClick={() => dispatch(clearError())}
-//                                 className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-all duration-200"
-//                             >
-//                                 <X size={20} />
-//                             </button>
-//                         </div>
-//                     </div>
-//                 )}
-
-//                 {/* Main Form Container */}
-//                 <div className="bg-white/90 backdrop-blur-xl shadow-2xl rounded-3xl border border-white/40 overflow-hidden">
-
-
-//                     <div className="bg-gradient-to-r from-fuchsia-600 via-purple-700 to-blue-600 p-8 relative overflow-hidden">
-//                         <div className="absolute top-0 left-0 w-full h-full">
-//                             <div className="absolute top-4 left-8 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
-//                             <div className="absolute top-12 right-12 w-16 h-16 bg-fuchsia-300/20 rounded-full animate-bounce"></div>
-//                             <div className="absolute bottom-4 left-1/3 w-12 h-12 bg-purple-300/20 rounded-full animate-pulse"></div>
-//                         </div>
-
-//                         <div className="relative z-10 flex justify-between items-center">
 //                             <div>
-//                                 <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-3">
-//                                     <Sparkles className="text-yellow-300" size={32} />
-//                                     Create New Project
-//                                     <Heart className="text-pink-300" size={28} />
-//                                 </h1>
-//                                 <p className="text-purple-100 text-lg font-medium">
-//                                     Share your amazing ideas with the world
-//                                 </p>
-//                             </div>
-
-//                             <div className="flex items-center gap-4">
-//                                 <div className="text-right">
-//                                     <div className="flex items-center gap-3 mb-2">
-//                                         <div>
-//                                             <p className="font-bold text-white text-lg">Welcome, {currentUser.username || 'Creator'}!</p>
-//                                         </div>
-//                                     </div>
-//                                     {/*{currentUser.exp && (*/}
-//                                     {/*    <p className="text-xs text-purple-300">*/}
-//                                     {/*        Session expires: {new Date(currentUser.exp * 1000).toLocaleString()}*/}
-//                                     {/*    </p>*/}
-//                                     {/*)}*/}
-
-//                                     {/*{process.env.NODE_ENV === 'development' && (*/}
-//                                     {/*    <button*/}
-//                                     {/*        onClick={() => setShowEmailTest(!showEmailTest)}*/}
-//                                     {/*        className="mt-2 text-xs text-purple-200 hover:text-white underline"*/}
-//                                     {/*    >*/}
-//                                     {/*        Test Email 📧*/}
-//                                     {/*    </button>*/}
-//                                     {/*)}*/}
-//                                 </div>
+//                                 <h3 className="font-bold text-amber-500">Project Published!</h3>
+//                                 <p className="text-slate-400 text-xs">{emailSent ? "Check your email for confirmation." : "Your craft is now live."}</p>
 //                             </div>
 //                         </div>
+//                     </div>
+//                 )}
 
-//                         {/* Email Test Section */}
-//                         {showEmailTest && process.env.NODE_ENV === 'development' && (
-//                             <div className="mt-6 p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
-//                                 <h4 className="text-white font-medium mb-2">Test Email Functionality</h4>
-//                                 <div className="flex gap-2">
-//                                     <input
-//                                         type="email"
-//                                         value={testEmailAddress}
-//                                         onChange={(e) => setTestEmailAddress(e.target.value)}
-//                                         placeholder="Enter email to test"
-//                                         className="flex-1 px-3 py-2 rounded-lg text-gray-800 text-sm"
-//                                     />
-//                                     <button
-//                                         onClick={handleTestEmail}
-//                                         disabled={uploadLoading}
-//                                         className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg text-sm flex items-center gap-2 disabled:opacity-50"
-//                                     >
-//                                         <Send size={14} />
-//                                         Send Test
-//                                     </button>
-//                                 </div>
-//                             </div>
-//                         )}
+//                 {/* Main Form */}
+//                 <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+//                     {/* Accent bar */}
+//                     <div className="h-1.5 w-full bg-slate-900">
+//                         <div className="h-full bg-amber-500 w-1/4"></div>
 //                     </div>
 
-//                     {/* Form Content */}
-//                     <div className="p-8 space-y-8" style={{ fontFamily: "'Inter', 'Segoe UI', system-ui, sans-serif" }}>
-
-//                         {/* Project Title */}
-//                         <div className="group">
-//                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Project Title
-//                                 <span className="text-red-500 text-xl">*</span>
-//                             </label>
-//                             <input
-//                                 name="title"
-//                                 value={formData.title}
-//                                 onChange={handleInputChange}
-//                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-purple-50 border-3 border-purple-200 rounded-2xl focus:border-fuchsia-400 focus:shadow-lg focus:shadow-fuchsia-200/50 transition-all duration-300 hover:border-purple-300 hover:shadow-md"
-//                                 placeholder="What's your amazing project called? "
-//                                 disabled={uploadLoading}
-//                                 required
-//                             />
+//                     <div className="p-8 md:p-12 space-y-10">
+                        
+//                         {/* Section 1: Basic Details */}
+//                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                             <div className="space-y-1.5">
+//                                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+//                                     <FileText size={14} className="text-amber-500"/> Title *
+//                                 </label>
+//                                 <input
+//                                     name="title"
+//                                     value={formData.title}
+//                                     onChange={handleInputChange}
+//                                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
+//                                     placeholder="Project Name"
+//                                 />
+//                             </div>
+//                             <div className="space-y-1.5">
+//                                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+//                                     <Palette size={14} className="text-amber-500"/> Category *
+//                                 </label>
+//                                 <select
+//                                     name="category"
+//                                     value={formData.category}
+//                                     onChange={handleInputChange}
+//                                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all cursor-pointer"
+//                                 >
+//                                     <option value="">Choose category</option>
+//                                     {categories?.map((cat: any, i: number) => (
+//                                         <option key={i} value={typeof cat === 'string' ? cat : cat.category}>
+//                                             {typeof cat === 'string' ? cat : cat.category}
+//                                         </option>
+//                                     ))}
+//                                 </select>
+//                             </div>
 //                         </div>
 
-//                         {/* Category */}
-//                         <div className="group">
-//                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Category
-//                                 <span className="text-red-500 text-xl">*</span>
-//                                 {categoriesLoading && (
-//                                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-fuchsia-600"></div>
-//                                 )}
-//                             </label>
-//                             <select
-//                                 name="category"
-//                                 value={formData.category}
-//                                 onChange={handleInputChange}
-//                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-blue-50 border-3 border-blue-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-blue-300 hover:shadow-md"
-//                                 disabled={categoriesLoading || uploadLoading}
-//                                 required
-//                             >
-//                                 <option value="">
-//                                     {categoriesLoading
-//                                         ? 'Loading categories...'
-//                                         : categoriesError
-//                                             ? 'Error loading categories'
-//                                             : 'Choose your category... '
-//                                     }
-//                                 </option>
-//                                 {!categoriesLoading && !categoriesError && categories && categories.map((categoryObj: CategoryData | string, index: number) => (
-//                                     <option key={index} value={typeof categoryObj === 'string' ? categoryObj : categoryObj.category}>
-//                                         {typeof categoryObj === 'string' ? categoryObj : categoryObj.category}
-//                                     </option>
-//                                 ))}
-//                             </select>
-//                             {categoriesError && (
-//                                 <p className="text-sm text-red-500 mt-2">
-//                                     Failed to load categories. Please refresh the page.
-//                                 </p>
-//                             )}
-//                         </div>
-
-//                         {/* Author */}
-//                         <div className="group">
-//                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Author
-//                                 <span className="text-red-500 text-xl">*</span>
-//                             </label>
-//                             <input
-//                                 name="author"
-//                                 value={formData.author}
-//                                 onChange={handleInputChange}
-//                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-fuchsia-50 border-3 border-fuchsia-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-fuchsia-300 hover:shadow-md"
-//                                 placeholder="Who's the creative genius behind this? "
-//                                 disabled={uploadLoading}
-//                                 required
-//                             />
+//                         {/* Section 2: Author & Image */}
+//                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                             <div className="space-y-1.5">
+//                                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+//                                     <User size={14} className="text-amber-500"/> Creator *
+//                                 </label>
+//                                 <input
+//                                     name="author"
+//                                     value={formData.author}
+//                                     onChange={handleInputChange}
+//                                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
+//                                     placeholder="Your Name"
+//                                 />
+//                             </div>
+//                             <div className="space-y-1.5">
+//                                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+//                                     <ImageIcon size={14} className="text-amber-500"/> Cover Link
+//                                 </label>
+//                                 <input
+//                                     name="imageUrl"
+//                                     value={formData.imageUrl}
+//                                     onChange={handleInputChange}
+//                                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
+//                                     placeholder="Image URL"
+//                                 />
+//                             </div>
 //                         </div>
 
 //                         {/* Description */}
-//                         <div className="group">
-//                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Description
-//                                 <span className="text-red-500 text-xl">*</span>
-//                             </label>
+//                         <div className="space-y-1.5">
+//                             <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">About the Craft *</label>
 //                             <textarea
 //                                 name="description"
 //                                 value={formData.description}
 //                                 onChange={handleInputChange}
-//                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-purple-50 border-3 border-purple-200 rounded-2xl focus:border-fuchsia-400 focus:shadow-lg focus:shadow-fuchsia-200/50 transition-all duration-300 hover:border-purple-300 hover:shadow-md resize-none"
-//                                 rows={4}
-//                                 placeholder="Tell us what makes your project special... "
-//                                 disabled={uploadLoading}
-//                                 required
+//                                 rows={3}
+//                                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all resize-none"
+//                                 placeholder="Share the story behind this project..."
 //                             />
 //                         </div>
 
-//                         {/* Image URL */}
-//                         <div className="group">
-//                             <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Image URL
+//                         {/* Materials */}
+//                         <div className="space-y-4 pt-4">
+//                             <label className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+//                                 <Scissors size={14} className="text-amber-500" /> Materials Needed
 //                             </label>
-//                             <input
-//                                 name="imageUrl"
-//                                 value={formData.imageUrl}
-//                                 onChange={handleInputChange}
-//                                 className="w-full p-4 text-base bg-gradient-to-r from-white to-blue-50 border-3 border-blue-200 rounded-2xl focus:border-purple-400 focus:shadow-lg focus:shadow-purple-200/50 transition-all duration-300 hover:border-blue-300 hover:shadow-md"
-//                                 placeholder="https://your-awesome-image.jpg "
-//                                 disabled={uploadLoading}
-//                             />
-//                         </div>
-
-//                         {/* Materials Section */}
-//                         <div className="bg-gradient-to-br from-orange-50 via-pink-50 to-rose-50 p-6 rounded-3xl border-3 border-orange-200 shadow-lg">
-//                             <label className="block text-lg font-bold text-gray-800 mb-4 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Materials Needed
-//                                 <span className="text-red-500 text-xl">*</span>
-//                             </label>
-//                             {formData.materials.map((material: string, index: number) => (
-//                                 <div key={index} className="flex gap-3 mb-3">
-//                                     <input
-//                                         value={material}
-//                                         onChange={(e) => updateArray(index, e.target.value, 'materials')}
-//                                         className="flex-1 p-3 text-base bg-white border-2 border-orange-300 rounded-xl focus:border-pink-400 focus:shadow-lg focus:shadow-pink-200/30 transition-all duration-200"
-//                                         placeholder={`Material ${index + 1} (e.g., Wood, Paint, Screws...) 🔨`}
-//                                         disabled={uploadLoading}
-//                                     />
-//                                     {formData.materials.length > 1 && (
-//                                         <button
-//                                             onClick={() => removeItem(index, 'materials')}
-//                                             className="p-3 text-red-500 hover:bg-red-100 rounded-xl transition-all duration-200 border-2 border-red-200 hover:border-red-300"
-//                                             disabled={uploadLoading}
-//                                         >
-//                                             <X size={18} />
-//                                         </button>
-//                                     )}
-//                                 </div>
-//                             ))}
-//                             <button
-//                                 onClick={() => addItem('materials')}
-//                                 className="flex items-center gap-2 px-6 py-3 text-base text-orange-600 bg-white hover:bg-orange-50 rounded-xl transition-all duration-200 font-bold border-2 border-orange-200 hover:border-orange-300 shadow-md hover:shadow-lg disabled:opacity-50"
-//                                 disabled={uploadLoading}
-//                             >
-//                                 <Plus size={18} /> Add Another Material
-//                             </button>
-//                         </div>
-
-//                         {/* Steps Section */}
-//                         <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 p-6 rounded-3xl border-3 border-green-200 shadow-lg">
-//                             <label className="block text-lg font-bold text-gray-800 mb-4 flex items-center gap-3">
-//                                 <span className="text-2xl"></span>
-//                                 Step-by-Step Instructions
-//                                 <span className="text-red-500 text-xl">*</span>
-//                             </label>
-//                             {formData.steps.map((step: string, index: number) => (
-//                                 <div key={index} className="flex gap-3 mb-4">
-//                                     <div className="mt-2 px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm rounded-full min-w-[36px] text-center font-bold shadow-lg">
-//                                         {index + 1}
+//                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+//                                 {formData.materials.map((m, i) => (
+//                                     <div key={i} className="flex gap-2">
+//                                         <input value={m} onChange={(e) => updateArray(i, e.target.value, 'materials')} className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold focus:border-amber-500 outline-none" placeholder="e.g. Acrylic Paint"/>
+//                                         {formData.materials.length > 1 && (
+//                                             <button onClick={() => removeItem(i, 'materials')} className="text-slate-300 hover:text-rose-500 transition-colors"><X size={16}/></button>
+//                                         )}
 //                                     </div>
-//                                     <textarea
-//                                         value={step}
-//                                         onChange={(e) => updateArray(index, e.target.value, 'steps')}
-//                                         className="flex-1 p-3 text-base bg-white border-2 border-green-300 rounded-xl focus:border-emerald-400 focus:shadow-lg focus:shadow-emerald-200/30 transition-all duration-200 resize-none"
-//                                         rows={3}
-//                                         placeholder={`Step ${index + 1}: Describe what to do... `}
-//                                         disabled={uploadLoading}
-//                                     />
-//                                     {formData.steps.length > 1 && (
-//                                         <button
-//                                             onClick={() => removeItem(index, 'steps')}
-//                                             className="mt-2 p-3 text-red-500 hover:bg-red-100 rounded-xl transition-all duration-200 border-2 border-red-200 hover:border-red-300"
-//                                             disabled={uploadLoading}
-//                                         >
-//                                             <X size={18} />
-//                                         </button>
-//                                     )}
-//                                 </div>
-//                             ))}
-//                             <button
-//                                 onClick={() => addItem('steps')}
-//                                 className="flex items-center gap-2 px-6 py-3 text-base text-green-600 bg-white hover:bg-green-50 rounded-xl transition-all duration-200 font-bold border-2 border-green-200 hover:border-green-300 shadow-md hover:shadow-lg disabled:opacity-50"
-//                                 disabled={uploadLoading}
-//                             >
-//                                 <Plus size={18} /> Add Another Step
-//                             </button>
+//                                 ))}
+//                             </div>
+//                             <button onClick={() => addItem('materials')} className="text-[10px] font-black text-amber-600 hover:text-amber-700 flex items-center gap-1 uppercase tracking-widest transition-colors"><Plus size={14}/> Add Material</button>
 //                         </div>
 
-//                         {/* Submit Button */}
-//                         <div className="pt-6 flex flex-col items-center">
+//                         {/* Steps */}
+//                         <div className="space-y-4 pt-6 border-t border-slate-50">
+//                             <label className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Process Steps</label>
+//                             <div className="space-y-4">
+//                                 {formData.steps.map((s, i) => (
+//                                     <div key={i} className="flex gap-4 group">
+//                                         <div className="h-8 w-8 shrink-0 bg-slate-900 text-amber-500 rounded-lg flex items-center justify-center font-black text-[10px]">{i + 1}</div>
+//                                         <div className="relative flex-1">
+//                                             <textarea value={s} onChange={(e) => updateArray(i, e.target.value, 'steps')} className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium focus:border-amber-500 outline-none transition-all resize-none" rows={2} placeholder="What should they do?"/>
+//                                             {formData.steps.length > 1 && (
+//                                                 <button onClick={() => removeItem(i, 'steps')} className="absolute -right-2 -top-2 p-1 bg-white border border-slate-100 rounded-full text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"><X size={12}/></button>
+//                                             )}
+//                                         </div>
+//                                     </div>
+//                                 ))}
+//                             </div>
+//                             <button onClick={() => addItem('steps')} className="text-[10px] font-black text-amber-600 hover:text-amber-700 flex items-center gap-1 uppercase tracking-widest transition-colors"><Plus size={14}/> Add Step</button>
+//                         </div>
+
+//                         {/* Footer */}
+//                         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-100">
+//                             <div className="flex items-center gap-2 text-slate-400">
+//                                 <AlertCircle size={14} />
+//                                 <span className="text-[10px] font-bold uppercase tracking-tighter">* Required Data</span>
+//                             </div>
 //                             <button
-//                                 type="button"
 //                                 onClick={handleSubmit}
-//                                 disabled={uploadLoading || categoriesLoading}
-//                                 className="w-[250px] bg-gradient-to-r from-fuchsia-600 via-purple-700 to-blue-600 hover:from-fuchsia-700 hover:via-purple-800 hover:to-blue-700 disabled:from-gray-400 disabled:via-gray-500 disabled:to-gray-600 text-white font-bold py-4 rounded-3xl transition-all duration-300 flex items-center justify-center gap-4 text-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 disabled:transform-none border border-white/20"
+//                                 disabled={uploadLoading}
+//                                 className="w-full sm:w-auto px-10 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl transition-all disabled:opacity-50 active:scale-95"
 //                             >
-//                                 {uploadLoading ? (
-//                                     <>
-//                                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-//                                         <span>Creating magic... ✨</span>
-//                                     </>
-//                                 ) : (
-//                                     <>
-//                                         <Upload size={20} />
-//                                         <span>Launch Your Project!</span>
-//                                     </>
-//                                 )}
+//                                 {uploadLoading ? <Loader2 size={18} className="animate-spin text-amber-500"/> : <Upload size={18} className="text-amber-500"/>}
+//                                 {uploadLoading ? 'Uploading...' : 'Publish Project'}
 //                             </button>
 //                         </div>
 //                     </div>
@@ -694,20 +1038,19 @@ import {
     CheckCircle,
     AlertCircle,
     Sparkles,
-    Mail,
-    Send,
-    Scissors,
     Palette,
     FileText,
     Image as ImageIcon,
     User,
-    Loader2
+    Loader2,
+    Layers,
+    ListChecks
 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../../../slices/rootReducer';
 import { getAllCategories } from '../../../slices/homeSlice';
-import { uploadProject, clearUploadState, clearError, testEmail } from '../../../slices/projectUploadSlice';
+import { uploadProject, clearUploadState, clearError } from '../../../slices/projectUploadSlice';
 import type { AppDispatch } from '../../../store/store';
 import { getUserFromToken } from '../../../Auth/auth.ts';
 import type { UserData } from '../../../model/userData.ts';
@@ -716,12 +1059,6 @@ interface ExtendedUserData extends UserData {
     email: string;
     exp?: number;
 }
-
-interface CategoryData {
-    category: string;
-}
-
-type CategoriesArray = (CategoryData | string)[];
 
 const isTokenExpired = (exp?: number): boolean => {
     if (!exp) return false;
@@ -738,8 +1075,7 @@ const ProjectUploadForm = () => {
 
     const {
         categories,
-        loading: categoriesLoading,
-        error: categoriesError
+        loading: categoriesLoading
     } = useSelector((state: RootState) => state.categories);
 
     const {
@@ -762,7 +1098,7 @@ const ProjectUploadForm = () => {
 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-    // --- LOGIC REMAINS EXACTLY AS PROVIDED ---
+    // --- LOGIC (UNTOUCHED) ---
     useEffect(() => {
         const checkAuthentication = () => {
             const token = localStorage.getItem('token');
@@ -859,172 +1195,230 @@ const ProjectUploadForm = () => {
     if (!isAuthenticated || !currentUser) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 py-10 px-4">
-            <div className="max-w-4xl mx-auto">
-                
-                {/* Header */}
-                <div className="mb-8 text-center">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 border border-amber-100">
-                        <Sparkles size={12} /> Share Your Craft
+        <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans">
+            {/* Top Navigation Spacer / Simple Header */}
+            <div className="w-full h-16 bg-white border-b border-slate-200 flex items-center px-8 justify-between sticky top-0 z-50">
+                <div className="flex items-center gap-2">
+                     
+                </div>
+                <div className="flex items-center gap-3">
+                    <div className="text-right hidden sm:block">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Logged in as</p>
+                        <p className="text-xs font-bold text-slate-700">{currentUser.email}</p>
                     </div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Create New Project</h1>
-                    <p className="text-slate-500 text-sm mt-2 font-medium">Publish your creative work to the global gallery</p>
+                    <div className="w-10 h-10 bg-slate-100 rounded-full border border-slate-200 flex items-center justify-center">
+                        <User size={20} className="text-slate-400" />
+                    </div>
+                </div>
+            </div>
+
+            <main className="max-w-7xl mx-auto py-8 px-4 md:px-8">
+                {/* Intro Title */}
+                <div className="mb-10">
+                    <h1 className="text-4xl font-black tracking-tight text-slate-900">Publish Your Masterpiece</h1>
+                    {/* <p className="text-slate-500 mt-2 font-medium">Fill in the details below to share your creative process with the community.</p> */}
                 </div>
 
                 {/* Notifications */}
                 {showSuccessMessage && (
-                    <div className="mb-6 bg-slate-900 text-white p-5 rounded-2xl shadow-xl border border-amber-500/20 animate-in fade-in zoom-in duration-300">
-                        <div className="flex items-center gap-4">
-                            <div className="bg-amber-500 p-2 rounded-xl">
-                                <CheckCircle size={24} className="text-slate-900" />
-                            </div>
+                    <div className="mb-8 bg-emerald-500 text-white p-4 rounded-2xl shadow-lg shadow-emerald-200/50 flex items-center justify-between animate-in slide-in-from-top-4 duration-500">
+                        <div className="flex items-center gap-3">
+                            <CheckCircle size={24} />
                             <div>
-                                <h3 className="font-bold text-amber-500">Project Published!</h3>
-                                <p className="text-slate-400 text-xs">{emailSent ? "Check your email for confirmation." : "Your craft is now live."}</p>
+                                <p className="font-bold">Successfully Published!</p>
+                                <p className="text-emerald-50 text-xs">{emailSent ? "A confirmation email has been sent." : "Your project is now visible to everyone."}</p>
                             </div>
                         </div>
+                        <button onClick={() => setShowSuccessMessage(false)}><X size={20}/></button>
                     </div>
                 )}
 
-                {/* Main Form */}
-                <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-                    {/* Accent bar */}
-                    <div className="h-1.5 w-full bg-slate-900">
-                        <div className="h-full bg-amber-500 w-1/4"></div>
+                {/* Modern Grid Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    {/* Left Column: Essential Info */}
+                    <div className="lg:col-span-7 space-y-6">
+                        <section className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60">
+                            <div className="flex items-center gap-3 mb-8 pb-4 border-b border-slate-50">
+                                <div className="p-2 bg-amber-50 rounded-lg text-amber-600"><Layers size={20}/></div>
+                                <h2 className="font-bold text-lg">Project Core Details</h2>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Project Title</label>
+                                    <input
+                                        name="title"
+                                        value={formData.title}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all"
+                                        placeholder="e.g. Handmade Ceramic Vase"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Category</label>
+                                    <select
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all appearance-none"
+                                    >
+                                        <option value="">Select Category</option>
+                                        {categories?.map((cat: any, i: number) => (
+                                            <option key={i} value={typeof cat === 'string' ? cat : cat.category}>
+                                                {typeof cat === 'string' ? cat : cat.category}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Author Name</label>
+                                    <div className="relative">
+                                        <User className="absolute left-4 top-3.5 text-slate-400" size={16}/>
+                                        <input
+                                            name="author"
+                                            value={formData.author}
+                                            onChange={handleInputChange}
+                                            className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all"
+                                            placeholder="Your display name"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Cover Image Link</label>
+                                    <div className="relative">
+                                        <ImageIcon className="absolute left-4 top-3.5 text-slate-400" size={16}/>
+                                        <input
+                                            name="imageUrl"
+                                            value={formData.imageUrl}
+                                            onChange={handleInputChange}
+                                            className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all"
+                                            placeholder="https://image-url.com"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="md:col-span-2 space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Description</label>
+                                    <textarea
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleInputChange}
+                                        rows={4}
+                                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-amber-500/5 focus:border-amber-500 outline-none transition-all resize-none"
+                                        placeholder="Describe your project, why you made it, and what makes it special..."
+                                    />
+                                </div>
+                            </div>
+                        </section>
                     </div>
 
-                    <div className="p-8 md:p-12 space-y-10">
+                    {/* Right Column: Steps & Materials */}
+                    <div className="lg:col-span-5 space-y-6">
                         
-                        {/* Section 1: Basic Details */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                                    <FileText size={14} className="text-amber-500"/> Title *
-                                </label>
-                                <input
-                                    name="title"
-                                    value={formData.title}
-                                    onChange={handleInputChange}
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
-                                    placeholder="Project Name"
-                                />
-                            </div>
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                                    <Palette size={14} className="text-amber-500"/> Category *
-                                </label>
-                                <select
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleInputChange}
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all cursor-pointer"
+                        {/* Materials Card */}
+                        <section className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600"><Palette size={18}/></div>
+                                    <h2 className="font-bold text-lg">Materials</h2>
+                                </div>
+                                <button 
+                                    onClick={() => addItem('materials')}
+                                    className="p-2 bg-amber-50 text-amber-600 rounded-full hover:bg-amber-100 transition-colors"
                                 >
-                                    <option value="">Choose category</option>
-                                    {categories?.map((cat: any, i: number) => (
-                                        <option key={i} value={typeof cat === 'string' ? cat : cat.category}>
-                                            {typeof cat === 'string' ? cat : cat.category}
-                                        </option>
-                                    ))}
-                                </select>
+                                    <Plus size={20}/>
+                                </button>
                             </div>
-                        </div>
-
-                        {/* Section 2: Author & Image */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                                    <User size={14} className="text-amber-500"/> Creator *
-                                </label>
-                                <input
-                                    name="author"
-                                    value={formData.author}
-                                    onChange={handleInputChange}
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
-                                    placeholder="Your Name"
-                                />
-                            </div>
-                            <div className="space-y-1.5">
-                                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                                    <ImageIcon size={14} className="text-amber-500"/> Cover Link
-                                </label>
-                                <input
-                                    name="imageUrl"
-                                    value={formData.imageUrl}
-                                    onChange={handleInputChange}
-                                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all"
-                                    placeholder="Image URL"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Description */}
-                        <div className="space-y-1.5">
-                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">About the Craft *</label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleInputChange}
-                                rows={3}
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all resize-none"
-                                placeholder="Share the story behind this project..."
-                            />
-                        </div>
-
-                        {/* Materials */}
-                        <div className="space-y-4 pt-4">
-                            <label className="text-[10px] font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                                <Scissors size={14} className="text-amber-500" /> Materials Needed
-                            </label>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            
+                            <div className="space-y-3">
                                 {formData.materials.map((m, i) => (
-                                    <div key={i} className="flex gap-2">
-                                        <input value={m} onChange={(e) => updateArray(i, e.target.value, 'materials')} className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-semibold focus:border-amber-500 outline-none" placeholder="e.g. Acrylic Paint"/>
-                                        {formData.materials.length > 1 && (
-                                            <button onClick={() => removeItem(i, 'materials')} className="text-slate-300 hover:text-rose-500 transition-colors"><X size={16}/></button>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                            <button onClick={() => addItem('materials')} className="text-[10px] font-black text-amber-600 hover:text-amber-700 flex items-center gap-1 uppercase tracking-widest transition-colors"><Plus size={14}/> Add Material</button>
-                        </div>
-
-                        {/* Steps */}
-                        <div className="space-y-4 pt-6 border-t border-slate-50">
-                            <label className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Process Steps</label>
-                            <div className="space-y-4">
-                                {formData.steps.map((s, i) => (
-                                    <div key={i} className="flex gap-4 group">
-                                        <div className="h-8 w-8 shrink-0 bg-slate-900 text-amber-500 rounded-lg flex items-center justify-center font-black text-[10px]">{i + 1}</div>
-                                        <div className="relative flex-1">
-                                            <textarea value={s} onChange={(e) => updateArray(i, e.target.value, 'steps')} className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium focus:border-amber-500 outline-none transition-all resize-none" rows={2} placeholder="What should they do?"/>
-                                            {formData.steps.length > 1 && (
-                                                <button onClick={() => removeItem(i, 'steps')} className="absolute -right-2 -top-2 p-1 bg-white border border-slate-100 rounded-full text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"><X size={12}/></button>
+                                    <div key={i} className="flex items-center gap-2 group animate-in slide-in-from-right-2">
+                                        <div className="flex-1 relative">
+                                            <input 
+                                                value={m} 
+                                                onChange={(e) => updateArray(i, e.target.value, 'materials')} 
+                                                className="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold focus:border-amber-500 outline-none transition-all" 
+                                                placeholder="e.g. Glue, Paint, etc."
+                                            />
+                                            {formData.materials.length > 1 && (
+                                                <button 
+                                                    onClick={() => removeItem(i, 'materials')}
+                                                    className="absolute right-3 top-2.5 text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all"
+                                                >
+                                                    <X size={16}/>
+                                                </button>
                                             )}
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <button onClick={() => addItem('steps')} className="text-[10px] font-black text-amber-600 hover:text-amber-700 flex items-center gap-1 uppercase tracking-widest transition-colors"><Plus size={14}/> Add Step</button>
-                        </div>
+                        </section>
 
-                        {/* Footer */}
-                        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-100">
-                            <div className="flex items-center gap-2 text-slate-400">
+                        {/* Steps Card */}
+                        <section className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-slate-50 rounded-lg text-slate-600"><ListChecks size={18}/></div>
+                                    <h2 className="font-bold text-lg">Process Steps</h2>
+                                </div>
+                                <button 
+                                    onClick={() => addItem('steps')}
+                                    className="p-2 bg-amber-50 text-amber-600 rounded-full hover:bg-amber-100 transition-colors"
+                                >
+                                    <Plus size={20}/>
+                                </button>
+                            </div>
+
+                            <div className="space-y-4">
+                                {formData.steps.map((s, i) => (
+                                    <div key={i} className="flex gap-4 group items-start animate-in slide-in-from-bottom-2">
+                                        <span className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-slate-900 text-amber-500 text-[10px] font-black flex items-center justify-center">
+                                            {i + 1}
+                                        </span>
+                                        <div className="flex-1 relative">
+                                            <textarea 
+                                                value={s} 
+                                                onChange={(e) => updateArray(i, e.target.value, 'steps')} 
+                                                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-xs font-medium focus:border-amber-500 outline-none transition-all resize-none" 
+                                                rows={2} 
+                                                placeholder={`Step ${i+1} details...`}
+                                            />
+                                            {formData.steps.length > 1 && (
+                                                <button 
+                                                    onClick={() => removeItem(i, 'steps')}
+                                                    className="absolute -right-1 -top-1 p-1 bg-white border border-slate-100 rounded-full text-slate-300 hover:text-rose-500 opacity-0 group-hover:opacity-100 transition-all shadow-sm"
+                                                >
+                                                    <X size={12}/>
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Action Card */}
+                        <div className="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl shadow-slate-300">
+                            <div className="flex items-center gap-2 mb-6 text-slate-400">
                                 <AlertCircle size={14} />
-                                <span className="text-[10px] font-bold uppercase tracking-tighter">* Required Data</span>
+                                <span className="text-[10px] font-bold uppercase tracking-wider">Please review all fields</span>
                             </div>
                             <button
                                 onClick={handleSubmit}
                                 disabled={uploadLoading}
-                                className="w-full sm:w-auto px-10 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl transition-all disabled:opacity-50 active:scale-95"
+className="w-full py-3 text-sm bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 active:scale-[0.97] shadow-md shadow-amber-500/20"
                             >
-                                {uploadLoading ? <Loader2 size={18} className="animate-spin text-amber-500"/> : <Upload size={18} className="text-amber-500"/>}
-                                {uploadLoading ? 'Uploading...' : 'Publish Project'}
+                                {uploadLoading ? (
+                                    <Loader2 size={20} className="animate-spin" />
+                                ) : (
+                                    <Upload size={20} />
+                                )}
+                                {uploadLoading ? 'PUBLISHING...' : 'PUBLISH PROJECT'}
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     );
 };

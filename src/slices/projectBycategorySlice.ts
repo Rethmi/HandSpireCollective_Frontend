@@ -20,7 +20,8 @@ interface Project {
     description: string;
     materials: string;
     steps: string;
-    image: string;
+    image?: string;      // Optional
+    imageUrl?: string;   // Optional
     createdAt: string;
     category: string;
     author: string;

@@ -5,6 +5,9 @@ import Register from "./view/pages/SignUp/Register.tsx";
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import {AdminDefaultLayout} from "./view/common/DefaultLayout/AdminDefaultLayout.tsx";
 import Reports from "./view/common/SideBar/Reports.tsx";
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:5000'; // ඔබේ Backend Port එක මෙතැනට දාන්න
 
 function App() {
 
