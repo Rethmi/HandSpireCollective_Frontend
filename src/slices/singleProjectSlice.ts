@@ -10,11 +10,26 @@ export const fetchProjectById = createAsyncThunk(
 );
 
 export const deleteProjectById = createAsyncThunk(
-    'project/deleteProjectById',
-    async (id: string) => {
-        const response = await axios.delete(`/api/project/delete/${id}`);
-        return { id, data: response.data };
+  'singleProject/deleteProjectById',
+  async (id: string, { rejectWithValue }) => {
+    try {
+      // Get the token from localStorage
+      const token = localStorage.getItem("token"); 
+
+      const response = await axios.delete(
+        `http://localhost:5000/api/project/delete/${id}`,
+        {
+          headers: {
+            // Attach the token here
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.error || 'Failed to delete project');
     }
+  }
 );
 
 interface Project {

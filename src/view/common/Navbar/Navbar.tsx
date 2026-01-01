@@ -124,6 +124,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, Palette, X, LayoutDashboard, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { Home, PlusSquare, FolderHeart, Mail } from 'lucide-react';
 
 export const Navbar = () => {
     const [userRole, setUserRole] = useState<string | null>(null);
@@ -164,11 +165,25 @@ export const Navbar = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-10">
-                        <Link to="/" className={navLinkClass("/")}>Home</Link>
-                        <Link to="/addProjects" className={navLinkClass("/addProjects")}>Upload</Link>
-                        <Link to="/my-projects" className={navLinkClass("/my-projects")}>My Collection</Link>
-                        <Link to="/contact" className={navLinkClass("/contact")}>Contact</Link>
-                        
+                       <Link to="/" className={navLinkClass("/")}>
+  <Home size={13} />
+  <span>Home</span>
+</Link>
+
+<Link to="/addProjects" className={navLinkClass("/addProjects")}>
+  <PlusSquare size={13} />
+  <span>Publish</span>
+</Link>
+
+<Link to="/my-projects" className={navLinkClass("/my-projects")}>
+  <FolderHeart size={13} />
+  <span>My Stuff</span>
+</Link>
+
+<Link to="/contact" className={navLinkClass("/contact")}>
+  <Mail size={13} />
+  <span>Contact</span>
+</Link>
                         {userRole === "ADMIN" && (
                             <Link to="/admin/mainContent" className="flex items-center text-sm font-semibold text-orange-600 hover:text-orange-700 bg-orange-50 px-3 py-1 rounded-full">
                                 <LayoutDashboard className="w-4 h-4 mr-1" />

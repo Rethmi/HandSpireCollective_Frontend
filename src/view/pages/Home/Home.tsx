@@ -423,31 +423,625 @@
 //         </div>
 //     )
 // }
-import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield } from "lucide-react"
+// import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield } from "lucide-react"
+// import { useDispatch, useSelector } from "react-redux"
+// import type { RootState } from "../../../slices/rootReducer.ts"
+// import { closeDropdown, getAllCategories, selectCategory, toggleDropdown } from "../../../slices/homeSlice.ts"
+// import type { AppDispatch } from "../../../store/store.ts"
+// import { useNavigate } from "react-router-dom"
+
+// export function Home() {
+//     const navigate = useNavigate()
+//     const dispatch = useDispatch<AppDispatch>()
+
+//     const { categories, loading, error, isDropdownOpen, selectedCategory } = useSelector(
+//         (state: RootState) => state.categories,
+//     )
+
+//     const handleToggleDropdown = () => {
+//         dispatch(toggleDropdown())
+//         if (!isDropdownOpen && categories.length === 0) {
+//             dispatch(getAllCategories())
+//         }
+//     }
+
+//     const handleSelectCategory = (category: { category?: string }) => {
+//         dispatch(selectCategory(category))
+//         dispatch(closeDropdown())
+//         if (category.category) {
+//             navigate(`/category/${category.category}`)
+//         }
+//     }
+
+//     return (
+//         <div className="min-h-screen bg-white">
+//             {/* Hero Section - Clean and Professional */}
+//             <section className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+//                     <div className="grid lg:grid-cols-2 gap-8 items-center">
+//                         {/* Left Content */}
+//                         <div className="space-y-6">
+//                             <div className="inline-flex items-center space-x-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-amber-100">
+//                                 <Sparkles className="w-3 h-3 text-amber-600" />
+//                                 <span className="text-xs font-medium text-amber-900">Trusted by 50,000+ Crafters</span>
+//                             </div>
+                            
+//                             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+//                                 Discover Beautiful
+//                                 <span className="block text-amber-700">Handcraft Projects</span>
+//                             </h1>
+                            
+//                             <p className="text-base text-gray-600 leading-relaxed max-w-xl">
+//                                 Explore a curated collection of handmade crafts, DIY tutorials, and creative projects. 
+//                                 Share your work and connect with a passionate community of makers.
+//                             </p>
+
+//                             <div className="flex flex-col sm:flex-row gap-3">
+//                                 <button className="bg-amber-600 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
+//                                     <Upload className="w-4 h-4" />
+//                                     <span>Upload Your Craft</span>
+//                                 </button>
+
+//                                 <div className="relative">
+//                                     <button
+//                                         onClick={handleToggleDropdown}
+//                                         className="w-full sm:w-auto bg-white border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-lg text-sm font-semibold hover:border-amber-300 hover:bg-amber-50 transition-colors shadow-sm flex items-center justify-center space-x-2"
+//                                     >
+//                                         <span>Browse Categories</span>
+//                                         <svg
+//                                             className={`w-3.5 h-3.5 transform transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
+//                                             fill="none"
+//                                             stroke="currentColor"
+//                                             viewBox="0 0 24 24"
+//                                         >
+//                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+//                                         </svg>
+//                                     </button>
+
+//                                     {isDropdownOpen && (
+//                                         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
+//                                             {loading && (
+//                                                 <div className="px-4 py-3 text-gray-500 text-xs flex items-center">
+//                                                     <svg className="animate-spin h-3.5 w-3.5 mr-2" fill="none" viewBox="0 0 24 24">
+//                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+//                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+//                                                     </svg>
+//                                                     Loading categories...
+//                                                 </div>
+//                                             )}
+
+//                                             {error && <div className="px-4 py-3 text-red-600 text-xs">Error: {error}</div>}
+
+//                                             {!loading && !error && categories.length === 0 && (
+//                                                 <div className="px-4 py-3 text-gray-500 text-xs">No categories found</div>
+//                                             )}
+
+//                                             {!loading && categories.length > 0 && categories.map((category, index) => (
+//                                                 <button
+//                                                     key={index}
+//                                                     onClick={() => handleSelectCategory(category)}
+//                                                     className="w-full text-left px-4 py-2.5 hover:bg-amber-50 transition-colors text-xs border-b border-gray-100 last:border-b-0"
+//                                                 >
+//                                                     {category.category || "Unknown Category"}
+//                                                 </button>
+//                                             ))}
+//                                         </div>
+//                                     )}
+//                                 </div>
+//                             </div>
+
+//                             {selectedCategory && selectedCategory.category && (
+//                                 <div className="inline-flex items-center space-x-2 bg-amber-100 px-3 py-1.5 rounded-lg">
+//                                     <span className="text-xs text-amber-900">
+//                                         Selected: <strong>{selectedCategory.category}</strong>
+//                                     </span>
+//                                 </div>
+//                             )}
+//                         </div>
+
+//                         {/* Right Visual with Images */}
+//                         <div className="relative">
+//                             <div className="grid grid-cols-2 gap-3">
+//                                 <div className="space-y-3">
+//                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+//                                         <img 
+//                                             src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop" 
+//                                             alt="Paper Crafts"
+//                                             className="w-full h-32 object-cover"
+//                                         />
+//                                         <div className="p-4">
+//                                             <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-2">
+//                                                 <Scissors className="w-5 h-5 text-amber-700" />
+//                                             </div>
+//                                             <h3 className="text-sm font-semibold text-gray-900 mb-0.5">Paper Crafts</h3>
+//                                             <p className="text-xs text-gray-500">2,345 projects</p>
+//                                         </div>
+//                                     </div>
+//                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+//                                         <img 
+//                                             src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=300&fit=crop" 
+//                                             alt="DIY Gifts"
+//                                             className="w-full h-32 object-cover"
+//                                         />
+//                                         <div className="p-4">
+//                                             <div className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center mb-2">
+//                                                 <Heart className="w-5 h-5 text-rose-700" />
+//                                             </div>
+//                                             <h3 className="text-sm font-semibold text-gray-900 mb-0.5">DIY Gifts</h3>
+//                                             <p className="text-xs text-gray-500">1,892 projects</p>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                                 <div className="space-y-3 pt-6">
+//                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+//                                         <img 
+//                                             src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=300&fit=crop" 
+//                                             alt="Painting"
+//                                             className="w-full h-32 object-cover"
+//                                         />
+//                                         <div className="p-4">
+//                                             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+//                                                 <PaintBucket className="w-5 h-5 text-orange-700" />
+//                                             </div>
+//                                             <h3 className="text-sm font-semibold text-gray-900 mb-0.5">Painting</h3>
+//                                             <p className="text-xs text-gray-500">3,120 projects</p>
+//                                         </div>
+//                                     </div>
+//                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+//                                         <img 
+//                                             src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop" 
+//                                             alt="Decorations"
+//                                             className="w-full h-32 object-cover"
+//                                         />
+//                                         <div className="p-4">
+//                                             <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-2">
+//                                                 <Sparkles className="w-5 h-5 text-amber-700" />
+//                                             </div>
+//                                             <h3 className="text-sm font-semibold text-gray-900 mb-0.5">Decorations</h3>
+//                                             <p className="text-xs text-gray-500">1,567 projects</p>
+//                                         </div>
+//                                     </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+
+//             {/* Stats Section */}
+//             {/* <section className="bg-white border-y border-gray-100">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+//                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+//                         <div className="text-center">
+//                             <div className="text-2xl font-bold text-amber-700 mb-1">50K+</div>
+//                             <div className="text-xs text-gray-600">Active Members</div>
+//                         </div>
+//                         <div className="text-center">
+//                             <div className="text-2xl font-bold text-amber-700 mb-1">15K+</div>
+//                             <div className="text-xs text-gray-600">Projects Shared</div>
+//                         </div>
+//                         <div className="text-center">
+//                             <div className="text-2xl font-bold text-amber-700 mb-1">200+</div>
+//                             <div className="text-xs text-gray-600">Categories</div>
+//                         </div>
+//                         <div className="text-center">
+//                             <div className="text-2xl font-bold text-amber-700 mb-1">98%</div>
+//                             <div className="text-xs text-gray-600">Satisfaction Rate</div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+
+//             <section className="bg-white py-16">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="text-center mb-12">
+//                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//                             How CraftGallery Works
+//                         </h2>
+//                         <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+//                             Get started in three simple steps and join our thriving creative community
+//                         </p>
+//                     </div>
+
+//                     <div className="grid md:grid-cols-3 gap-8">
+//                         <div className="text-center">
+//                             <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <span className="text-2xl font-bold text-amber-700">1</span>
+//                             </div>
+//                             <h3 className="text-lg font-semibold text-gray-900 mb-2">Create an Account</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Sign up for free in seconds and set up your creative profile to get started.
+//                             </p>
+//                         </div>
+
+//                         <div className="text-center">
+//                             <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <span className="text-2xl font-bold text-orange-700">2</span>
+//                             </div>
+//                             <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Your Projects</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Share your handmade creations with photos, descriptions, and step-by-step guides.
+//                             </p>
+//                         </div>
+
+//                         <div className="text-center">
+//                             <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <span className="text-2xl font-bold text-rose-700">3</span>
+//                             </div>
+//                             <h3 className="text-lg font-semibold text-gray-900 mb-2">Connect & Inspire</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Engage with the community, get feedback, and inspire others with your creativity.
+//                             </p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section> */}
+
+            
+// {/* Latest Blog Posts Section */}
+//             <section className="bg-white py-16">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="flex items-center justify-between mb-8">
+//                         <div>
+//                             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+//                                 From Our Blog
+//                             </h2>
+//                             <p className="text-sm text-gray-600">
+//                                 Tips, tutorials, and inspiration for your next project
+//                             </p>
+//                         </div>
+//                         <button className="hidden md:flex items-center space-x-2 text-amber-700 font-semibold text-sm hover:text-amber-800">
+//                             <span>Read More</span>
+//                             <ChevronRight className="w-4 h-4" />
+//                         </button>
+//                     </div>
+
+//                     <div className="grid md:grid-cols-3 gap-6">
+//                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+//                             <img 
+//                                 src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=600&h=400&fit=crop" 
+//                                 alt="Blog post"
+//                                 className="w-full h-48 object-cover"
+//                             />
+//                             <div className="p-6">
+//                                 <div className="flex items-center text-xs text-gray-500 mb-3">
+//                                     <Clock className="w-3 h-3 mr-1" />
+//                                     <span>5 min read</span>
+//                                     <span className="mx-2">•</span>
+//                                     <span>Dec 20, 2024</span>
+//                                 </div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">
+//                                     10 Essential Tools Every Crafter Needs
+//                                 </h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
+//                                     Discover the must-have tools that will transform your crafting experience and help you create professional-quality projects.
+//                                 </p>
+//                                 <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+//                                     <span>Read Article</span>
+//                                     <ChevronRight className="w-4 h-4 ml-1" />
+//                                 </button>
+//                             </div>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+//                             <img 
+//                                 src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop" 
+//                                 alt="Blog post"
+//                                 className="w-full h-48 object-cover"
+//                             />
+//                             <div className="p-6">
+//                                 <div className="flex items-center text-xs text-gray-500 mb-3">
+//                                     <Clock className="w-3 h-3 mr-1" />
+//                                     <span>7 min read</span>
+//                                     <span className="mx-2">•</span>
+//                                     <span>Dec 18, 2024</span>
+//                                 </div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">
+//                                     Watercolor Techniques for Beginners
+//                                 </h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
+//                                     Learn fundamental watercolor techniques that will help you create beautiful paintings, even if you're just starting out.
+//                                 </p>
+//                                 <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+//                                     <span>Read Article</span>
+//                                     <ChevronRight className="w-4 h-4 ml-1" />
+//                                 </button>
+//                             </div>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+//                             <img 
+//                                 src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" 
+//                                 alt="Blog post"
+//                                 className="w-full h-48 object-cover"
+//                             />
+//                             <div className="p-6">
+//                                 <div className="flex items-center text-xs text-gray-500 mb-3">
+//                                     <Clock className="w-3 h-3 mr-1" />
+//                                     <span>6 min read</span>
+//                                     <span className="mx-2">•</span>
+//                                     <span>Dec 15, 2024</span>
+//                                 </div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">
+//                                     Sustainable Crafting: Eco-Friendly Materials
+//                                 </h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
+//                                     Explore environmentally conscious crafting materials and practices that help reduce waste while creating beautiful projects.
+//                                 </p>
+//                                 <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
+//                                     <span>Read Article</span>
+//                                     <ChevronRight className="w-4 h-4 ml-1" />
+//                                 </button>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+          
+            
+           
+
+//             {/* Features Section */}
+//             <section className="bg-gray-50 py-16">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="text-center mb-12">
+//                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//                             Everything You Need to Create
+//                         </h2>
+//                         <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+//                             Join our community and access all the tools and inspiration you need for your crafting journey
+//                         </p>
+//                     </div>
+
+//                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <Upload className="w-6 h-6 text-amber-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Share Your Work</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Upload photos of your handcrafted projects and showcase your creativity to an appreciative audience.
+//                             </p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <Search className="w-6 h-6 text-orange-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Discover Ideas</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Browse thousands of projects across multiple categories and find inspiration for your next creation.
+//                             </p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <BookOpen className="w-6 h-6 text-rose-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Learn Techniques</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Access step-by-step tutorials and guides from experienced crafters to improve your skills.
+//                             </p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <Users className="w-6 h-6 text-amber-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Join Community</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Connect with like-minded creators, share tips, and participate in collaborative projects.
+//                             </p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <Star className="w-6 h-6 text-orange-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Rate & Review</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Show appreciation for exceptional work and help others discover the best projects.
+//                             </p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+//                             <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-4">
+//                                 <Heart className="w-6 h-6 text-rose-700" />
+//                             </div>
+//                             <h3 className="text-base font-semibold text-gray-900 mb-2">Save Favorites</h3>
+//                             <p className="text-sm text-gray-600 leading-relaxed">
+//                                 Bookmark inspiring projects and create your personal collection for future reference.
+//                             </p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+
+ 
+// {/* Community Highlights Section */}
+//             <section className="bg-gradient-to-br from-amber-50 to-orange-50 py-16">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="text-center mb-12">
+//                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//                             Community Achievements
+//                         </h2>
+//                         <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+//                             Celebrating the incredible milestones of our creative community
+//                         </p>
+//                     </div>
+
+//                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+//                         <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+//                             <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <Award className="w-7 h-7 text-amber-700" />
+//                             </div>
+//                             <div className="text-3xl font-bold text-amber-700 mb-2">2.5M+</div>
+//                             <p className="text-sm text-gray-600">Total Likes Received</p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+//                             <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <MessageCircle className="w-7 h-7 text-orange-700" />
+//                             </div>
+//                             <div className="text-3xl font-bold text-orange-700 mb-2">180K+</div>
+//                             <p className="text-sm text-gray-600">Community Comments</p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+//                             <div className="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <Camera className="w-7 h-7 text-rose-700" />
+//                             </div>
+//                             <div className="text-3xl font-bold text-rose-700 mb-2">45K+</div>
+//                             <p className="text-sm text-gray-600">Photos Uploaded Today</p>
+//                         </div>
+
+//                         <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
+//                             <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//                                 <Users className="w-7 h-7 text-amber-700" />
+//                             </div>
+//                             <div className="text-3xl font-bold text-amber-700 mb-2">120+</div>
+//                             <p className="text-sm text-gray-600">Countries Represented</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+
+//              {/* Trust Indicators Section */}
+//             <section className="bg-white py-16">
+//                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//                     <div className="text-center mb-12">
+//                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//                             Trusted by Crafters Worldwide
+//                         </h2>
+//                         <p className="text-sm text-gray-600 max-w-2xl mx-auto">
+//                             Join thousands of satisfied creators who trust CraftGallery for their crafting journey
+//                         </p>
+//                     </div>
+
+//                     <div className="grid md:grid-cols-3 gap-8">
+//                         <div className="flex items-start space-x-4">
+//                             <div className="flex-shrink-0">
+//                                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+//                                     <CheckCircle className="w-6 h-6 text-green-600" />
+//                                 </div>
+//                             </div>
+//                             <div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">100% Free to Join</h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed">
+//                                     No hidden fees or premium tiers. Access all features completely free and start sharing your work immediately.
+//                                 </p>
+//                             </div>
+//                         </div>
+
+//                         <div className="flex items-start space-x-4">
+//                             <div className="flex-shrink-0">
+//                                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+//                                     <Shield className="w-6 h-6 text-blue-600" />
+//                                 </div>
+//                             </div>
+//                             <div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">Your Work is Protected</h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed">
+//                                     Advanced security measures ensure your creative work and personal information remain safe and secure.
+//                                 </p>
+//                             </div>
+//                         </div>
+
+//                         <div className="flex items-start space-x-4">
+//                             <div className="flex-shrink-0">
+//                                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+//                                     <Heart className="w-6 h-6 text-purple-600" />
+//                                 </div>
+//                             </div>
+//                             <div>
+//                                 <h3 className="text-base font-semibold text-gray-900 mb-2">Supportive Community</h3>
+//                                 <p className="text-sm text-gray-600 leading-relaxed">
+//                                     Connect with encouraging crafters who celebrate your work and provide constructive feedback.
+//                                 </p>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+//              {/* Newsletter Section */}
+//             <section className="bg-gray-50 py-16">
+//                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+//                     <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
+//                         <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+//                             <MessageCircle className="w-8 h-8 text-amber-700" />
+//                         </div>
+//                         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//                             Stay Inspired Weekly
+//                         </h2>
+//                         <p className="text-sm text-gray-600 mb-8 max-w-2xl mx-auto">
+//                             Subscribe to our newsletter and get the latest craft trends, tutorials, and featured projects delivered to your inbox every week.
+//                         </p>
+//                         <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+//                             <input 
+//                                 type="email" 
+//                                 placeholder="Enter your email address"
+//                                 className="flex-1 px-4 py-3 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+//                             />
+//                             <button className="bg-amber-600 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-md">
+//                                 Subscribe
+//                             </button>
+//                         </div>
+//                         <p className="text-xs text-gray-500 mt-4">
+//                             Join 25,000+ crafters already subscribed. Unsubscribe anytime.
+//                         </p>
+//                     </div>
+//                 </div>
+//             </section>
+            
+
+//             {/* CTA Section
+//             <section className="bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600 text-white py-16">
+//                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+//                     <h2 className="text-2xl md:text-3xl font-bold mb-4">
+//                         Start Your Creative Journey Today
+//                     </h2>
+//                     <p className="text-base mb-8 opacity-95 max-w-2xl mx-auto">
+//                         Join thousands of crafters sharing their passion and inspiring others. Your next masterpiece awaits.
+//                     </p>
+//                     <button className="bg-white text-amber-700 px-8 py-3 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-lg inline-flex items-center space-x-2">
+//                         <Palette className="w-4 h-4" />
+//                         <span>Get Started Free</span>
+//                     </button>
+//                 </div>
+//             </section> */}
+//         </div>
+//     )
+// }
+
+import { useState } from "react"
+import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield, X } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../../../slices/rootReducer.ts"
-import { closeDropdown, getAllCategories, selectCategory, toggleDropdown } from "../../../slices/homeSlice.ts"
+import { getAllCategories, selectCategory } from "../../../slices/homeSlice.ts"
 import type { AppDispatch } from "../../../store/store.ts"
 import { useNavigate } from "react-router-dom"
 
 export function Home() {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
+    
+    // Modal eka open/close karanna state ekak
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
-    const { categories, loading, error, isDropdownOpen, selectedCategory } = useSelector(
+    const { categories, loading, error, selectedCategory } = useSelector(
         (state: RootState) => state.categories,
     )
 
-    const handleToggleDropdown = () => {
-        dispatch(toggleDropdown())
-        if (!isDropdownOpen && categories.length === 0) {
+    const handleOpenModal = () => {
+        setIsModalOpen(true)
+        if (categories.length === 0) {
             dispatch(getAllCategories())
         }
     }
 
     const handleSelectCategory = (category: { category?: string }) => {
         dispatch(selectCategory(category))
-        dispatch(closeDropdown())
+        setIsModalOpen(false) // Select karapu gaman modal eka wahanna
         if (category.category) {
             navigate(`/category/${category.category}`)
         }
@@ -455,7 +1049,7 @@ export function Home() {
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Hero Section - Clean and Professional */}
+            {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
                     <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -477,57 +1071,14 @@ export function Home() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-3">
-                                <button className="bg-amber-600 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
-                                    <Upload className="w-4 h-4" />
-                                    <span>Upload Your Craft</span>
+                                {/* "Upload Your Craft" ain kara, Browse Categories vitharak thibba */}
+                                <button
+                                    onClick={handleOpenModal}
+                                    className="w-full sm:w-auto bg-amber-600 text-white px-8 py-3 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-md hover:shadow-lg flex items-center justify-center space-x-2"
+                                >
+                                    <Search className="w-4 h-4" />
+                                    <span>Discover More</span>
                                 </button>
-
-                                <div className="relative">
-                                    <button
-                                        onClick={handleToggleDropdown}
-                                        className="w-full sm:w-auto bg-white border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-lg text-sm font-semibold hover:border-amber-300 hover:bg-amber-50 transition-colors shadow-sm flex items-center justify-center space-x-2"
-                                    >
-                                        <span>Browse Categories</span>
-                                        <svg
-                                            className={`w-3.5 h-3.5 transform transition-transform ${isDropdownOpen ? "rotate-180" : ""}`}
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </button>
-
-                                    {isDropdownOpen && (
-                                        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
-                                            {loading && (
-                                                <div className="px-4 py-3 text-gray-500 text-xs flex items-center">
-                                                    <svg className="animate-spin h-3.5 w-3.5 mr-2" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
-                                                    Loading categories...
-                                                </div>
-                                            )}
-
-                                            {error && <div className="px-4 py-3 text-red-600 text-xs">Error: {error}</div>}
-
-                                            {!loading && !error && categories.length === 0 && (
-                                                <div className="px-4 py-3 text-gray-500 text-xs">No categories found</div>
-                                            )}
-
-                                            {!loading && categories.length > 0 && categories.map((category, index) => (
-                                                <button
-                                                    key={index}
-                                                    onClick={() => handleSelectCategory(category)}
-                                                    className="w-full text-left px-4 py-2.5 hover:bg-amber-50 transition-colors text-xs border-b border-gray-100 last:border-b-0"
-                                                >
-                                                    {category.category || "Unknown Category"}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
                             </div>
 
                             {selectedCategory && selectedCategory.category && (
@@ -544,11 +1095,7 @@ export function Home() {
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-3">
                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop" 
-                                            alt="Paper Crafts"
-                                            className="w-full h-32 object-cover"
-                                        />
+                                        <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop" alt="Paper Crafts" className="w-full h-32 object-cover" />
                                         <div className="p-4">
                                             <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-2">
                                                 <Scissors className="w-5 h-5 text-amber-700" />
@@ -558,11 +1105,7 @@ export function Home() {
                                         </div>
                                     </div>
                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=300&fit=crop" 
-                                            alt="DIY Gifts"
-                                            className="w-full h-32 object-cover"
-                                        />
+                                        <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=300&fit=crop" alt="DIY Gifts" className="w-full h-32 object-cover" />
                                         <div className="p-4">
                                             <div className="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center mb-2">
                                                 <Heart className="w-5 h-5 text-rose-700" />
@@ -574,11 +1117,7 @@ export function Home() {
                                 </div>
                                 <div className="space-y-3 pt-6">
                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=300&fit=crop" 
-                                            alt="Painting"
-                                            className="w-full h-32 object-cover"
-                                        />
+                                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=300&fit=crop" alt="Painting" className="w-full h-32 object-cover" />
                                         <div className="p-4">
                                             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
                                                 <PaintBucket className="w-5 h-5 text-orange-700" />
@@ -588,11 +1127,7 @@ export function Home() {
                                         </div>
                                     </div>
                                     <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop" 
-                                            alt="Decorations"
-                                            className="w-full h-32 object-cover"
-                                        />
+                                        <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&h=300&fit=crop" alt="Decorations" className="w-full h-32 object-cover" />
                                         <div className="p-4">
                                             <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-2">
                                                 <Sparkles className="w-5 h-5 text-amber-700" />
@@ -608,87 +1143,54 @@ export function Home() {
                 </div>
             </section>
 
-            {/* Stats Section */}
-            {/* <section className="bg-white border-y border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-amber-700 mb-1">50K+</div>
-                            <div className="text-xs text-gray-600">Active Members</div>
+            {/* CATEGORY POP-UP MODAL */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+                        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+                            <h2 className="text-lg font-bold text-gray-900 text-center flex-1">All Categories</h2>
+                            <button 
+                                onClick={() => setIsModalOpen(false)}
+                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                            >
+                                <X className="w-5 h-5 text-gray-500" />
+                            </button>
                         </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-amber-700 mb-1">15K+</div>
-                            <div className="text-xs text-gray-600">Projects Shared</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-amber-700 mb-1">200+</div>
-                            <div className="text-xs text-gray-600">Categories</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-amber-700 mb-1">98%</div>
-                            <div className="text-xs text-gray-600">Satisfaction Rate</div>
+                        
+                        <div className="p-6 max-h-[60vh] overflow-y-auto">
+                            {loading && (
+                                <div className="flex justify-center py-8">
+                                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+                                </div>
+                            )}
+
+                            {error && <div className="p-4 text-red-600 text-sm text-center">Error: {error}</div>}
+
+                            {!loading && !error && (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {categories.map((category, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => handleSelectCategory(category)}
+                                            className="text-left px-4 py-3 bg-gray-50 hover:bg-amber-50 hover:text-amber-700 border border-gray-100 rounded-xl transition-all text-sm font-medium"
+                                        >
+                                            {category.category || "Unknown"}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
-            </section>
+            )}
 
-            <section className="bg-white py-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                            How CraftGallery Works
-                        </h2>
-                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-                            Get started in three simple steps and join our thriving creative community
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl font-bold text-amber-700">1</span>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Create an Account</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Sign up for free in seconds and set up your creative profile to get started.
-                            </p>
-                        </div>
-
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl font-bold text-orange-700">2</span>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload Your Projects</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Share your handmade creations with photos, descriptions, and step-by-step guides.
-                            </p>
-                        </div>
-
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl font-bold text-rose-700">3</span>
-                            </div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">Connect & Inspire</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Engage with the community, get feedback, and inspire others with your creativity.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-
-            
-{/* Latest Blog Posts Section */}
+            {/* From Our Blog Section */}
             <section className="bg-white py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                                From Our Blog
-                            </h2>
-                            <p className="text-sm text-gray-600">
-                                Tips, tutorials, and inspiration for your next project
-                            </p>
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">From Our Blog</h2>
+                            <p className="text-sm text-gray-600">Tips, tutorials, and inspiration for your next project</p>
                         </div>
                         <button className="hidden md:flex items-center space-x-2 text-amber-700 font-semibold text-sm hover:text-amber-800">
                             <span>Read More</span>
@@ -697,168 +1199,69 @@ export function Home() {
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6">
+                        {/* Blog Card 1 */}
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
-                            <img 
-                                src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=600&h=400&fit=crop" 
-                                alt="Blog post"
-                                className="w-full h-48 object-cover"
-                            />
+                            <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=600&h=400&fit=crop" alt="Blog" className="w-full h-48 object-cover" />
                             <div className="p-6">
                                 <div className="flex items-center text-xs text-gray-500 mb-3">
                                     <Clock className="w-3 h-3 mr-1" />
-                                    <span>5 min read</span>
-                                    <span className="mx-2">•</span>
-                                    <span>Dec 20, 2024</span>
+                                    <span>5 min read • Dec 20, 2024</span>
                                 </div>
-                                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                                    10 Essential Tools Every Crafter Needs
-                                </h3>
-                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                                    Discover the must-have tools that will transform your crafting experience and help you create professional-quality projects.
-                                </p>
-                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
-                                    <span>Read Article</span>
-                                    <ChevronRight className="w-4 h-4 ml-1" />
-                                </button>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">10 Essential Tools Every Crafter Needs</h3>
+                                <p className="text-sm text-gray-600 mb-4">Discover the must-have tools that will transform your crafting experience.</p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center">Read Article <ChevronRight className="w-4 h-4 ml-1" /></button>
                             </div>
                         </div>
-
+                        {/* Blog Card 2 */}
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
-                            <img 
-                                src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop" 
-                                alt="Blog post"
-                                className="w-full h-48 object-cover"
-                            />
+                            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop" alt="Blog" className="w-full h-48 object-cover" />
                             <div className="p-6">
                                 <div className="flex items-center text-xs text-gray-500 mb-3">
                                     <Clock className="w-3 h-3 mr-1" />
-                                    <span>7 min read</span>
-                                    <span className="mx-2">•</span>
-                                    <span>Dec 18, 2024</span>
+                                    <span>7 min read • Dec 18, 2024</span>
                                 </div>
-                                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                                    Watercolor Techniques for Beginners
-                                </h3>
-                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                                    Learn fundamental watercolor techniques that will help you create beautiful paintings, even if you're just starting out.
-                                </p>
-                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
-                                    <span>Read Article</span>
-                                    <ChevronRight className="w-4 h-4 ml-1" />
-                                </button>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">Watercolor Techniques for Beginners</h3>
+                                <p className="text-sm text-gray-600 mb-4">Learn fundamental watercolor techniques to create beautiful paintings.</p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center">Read Article <ChevronRight className="w-4 h-4 ml-1" /></button>
                             </div>
                         </div>
-
+                        {/* Blog Card 3 */}
                         <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
-                            <img 
-                                src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" 
-                                alt="Blog post"
-                                className="w-full h-48 object-cover"
-                            />
+                            <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" alt="Blog" className="w-full h-48 object-cover" />
                             <div className="p-6">
                                 <div className="flex items-center text-xs text-gray-500 mb-3">
                                     <Clock className="w-3 h-3 mr-1" />
-                                    <span>6 min read</span>
-                                    <span className="mx-2">•</span>
-                                    <span>Dec 15, 2024</span>
+                                    <span>6 min read • Dec 15, 2024</span>
                                 </div>
-                                <h3 className="text-base font-semibold text-gray-900 mb-2">
-                                    Sustainable Crafting: Eco-Friendly Materials
-                                </h3>
-                                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                                    Explore environmentally conscious crafting materials and practices that help reduce waste while creating beautiful projects.
-                                </p>
-                                <button className="text-amber-700 font-semibold text-sm flex items-center hover:text-amber-800">
-                                    <span>Read Article</span>
-                                    <ChevronRight className="w-4 h-4 ml-1" />
-                                </button>
+                                <h3 className="text-base font-semibold text-gray-900 mb-2">Sustainable Crafting: Eco-Friendly Materials</h3>
+                                <p className="text-sm text-gray-600 mb-4">Explore environmentally conscious crafting materials and practices.</p>
+                                <button className="text-amber-700 font-semibold text-sm flex items-center">Read Article <ChevronRight className="w-4 h-4 ml-1" /></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-          
-            
-           
 
             {/* Features Section */}
             <section className="bg-gray-50 py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-                            Everything You Need to Create
-                        </h2>
-                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-                            Join our community and access all the tools and inspiration you need for your crafting journey
-                        </p>
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Everything You Need to Create</h2>
+                        <p className="text-sm text-gray-600 max-w-2xl mx-auto">Join our community and access all the tools and inspiration you need.</p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
-                                <Upload className="w-6 h-6 text-amber-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Share Your Work</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Upload photos of your handcrafted projects and showcase your creativity to an appreciative audience.
-                            </p>
-                        </div>
-
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-                                <Search className="w-6 h-6 text-orange-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Discover Ideas</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Browse thousands of projects across multiple categories and find inspiration for your next creation.
-                            </p>
-                        </div>
-
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-4">
-                                <BookOpen className="w-6 h-6 text-rose-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Learn Techniques</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Access step-by-step tutorials and guides from experienced crafters to improve your skills.
-                            </p>
-                        </div>
-
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-4">
-                                <Users className="w-6 h-6 text-amber-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Join Community</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Connect with like-minded creators, share tips, and participate in collaborative projects.
-                            </p>
-                        </div>
-
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-                                <Star className="w-6 h-6 text-orange-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Rate & Review</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Show appreciation for exceptional work and help others discover the best projects.
-                            </p>
-                        </div>
-
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                            <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-4">
-                                <Heart className="w-6 h-6 text-rose-700" />
-                            </div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-2">Save Favorites</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
-                                Bookmark inspiring projects and create your personal collection for future reference.
-                            </p>
-                        </div>
+                        <FeatureBox Icon={Upload} title="Share Your Work" desc="Upload photos of your projects and showcase your creativity." />
+                        <FeatureBox Icon={Search} title="Discover Ideas" desc="Browse thousands of projects across multiple categories." />
+                        <FeatureBox Icon={BookOpen} title="Learn Techniques" desc="Access step-by-step tutorials from experienced crafters." />
+                        <FeatureBox Icon={Users} title="Join Community" desc="Connect with like-minded creators and share tips." />
+                        <FeatureBox Icon={Star} title="Rate & Review" desc="Show appreciation for exceptional work and help others." />
+                        <FeatureBox Icon={Heart} title="Save Favorites" desc="Bookmark inspiring projects for future reference." />
                     </div>
                 </div>
             </section>
 
- 
-{/* Community Highlights Section */}
+           {/* Community Highlights Section */}
             <section className="bg-gradient-to-br from-amber-50 to-orange-50 py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
@@ -993,22 +1396,39 @@ export function Home() {
                 </div>
             </section>
             
-
-            {/* CTA Section
-            <section className="bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600 text-white py-16">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                        Start Your Creative Journey Today
-                    </h2>
-                    <p className="text-base mb-8 opacity-95 max-w-2xl mx-auto">
-                        Join thousands of crafters sharing their passion and inspiring others. Your next masterpiece awaits.
-                    </p>
-                    <button className="bg-white text-amber-700 px-8 py-3 rounded-lg text-sm font-semibold hover:bg-gray-50 transition-colors shadow-lg inline-flex items-center space-x-2">
-                        <Palette className="w-4 h-4" />
-                        <span>Get Started Free</span>
-                    </button>
-                </div>
-            </section> */}
-        </div>
+       </div>
     )
 }
+
+// Sub-components to keep code clean
+const FeatureBox = ({ Icon, title, desc }: any) => (
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
+            <Icon className="w-6 h-6 text-amber-700" />
+        </div>
+        <h3 className="text-base font-semibold text-gray-900 mb-2">{title}</h3>
+        <p className="text-sm text-gray-600">{desc}</p>
+    </div>
+)
+
+const StatBox = ({ Icon, value, label }: any) => (
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon className="w-7 h-7 text-amber-700" />
+        </div>
+        <div className="text-3xl font-bold text-amber-700 mb-2">{value}</div>
+        <p className="text-sm text-gray-600">{label}</p>
+    </div>
+)
+
+const TrustBox = ({ Icon, title, desc, color, bg }: any) => (
+    <div className="flex items-start space-x-4">
+        <div className={`flex-shrink-0 w-12 h-12 ${bg} rounded-full flex items-center justify-center`}>
+            <Icon className={`w-6 h-6 ${color}`} />
+        </div>
+        <div>
+            <h3 className="text-base font-semibold text-gray-900 mb-2">{title}</h3>
+            <p className="text-sm text-gray-600">{desc}</p>
+        </div>
+    </div>
+)
