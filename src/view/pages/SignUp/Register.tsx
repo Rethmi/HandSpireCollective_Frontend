@@ -866,7 +866,7 @@ const UserRegisterForm = () => {
             });
 
             setSuccess(true);
-           // setRegisteredUser(result);
+            //setRegisteredUser(result);
             setFormData({ email: '', firstName: '', lastName: '', password: '', confirmPassword: '' });
             
             setTimeout(() => { window.location.href = '/login'; }, 1000); 

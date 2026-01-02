@@ -115,7 +115,7 @@ export const AdminDashboardContent = () => {
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff',
-        ignoreElements: (element) => {
+        ignoreElements: () => {
           // Ignore elements that might cause issues
           return false;
         },
