@@ -1014,7 +1014,7 @@
 // }
 
 import { useState } from "react"
-import { Camera, Heart, PaintBucket, Palette, Scissors, Search, Sparkles, Star, Upload, Users, TrendingUp, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield, X } from "lucide-react"
+import { Camera, Heart, PaintBucket, Scissors, Search, Sparkles, Star, Upload, Users, BookOpen, Award, MessageCircle, ChevronRight, Clock, CheckCircle, Shield, X } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../../../slices/rootReducer.ts"
 import { getAllCategories, selectCategory } from "../../../slices/homeSlice.ts"
@@ -1411,24 +1411,24 @@ const FeatureBox = ({ Icon, title, desc }: any) => (
     </div>
 )
 
-const StatBox = ({ Icon, value, label }: any) => (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Icon className="w-7 h-7 text-amber-700" />
-        </div>
-        <div className="text-3xl font-bold text-amber-700 mb-2">{value}</div>
-        <p className="text-sm text-gray-600">{label}</p>
-    </div>
-)
+// const StatBox = ({ Icon, value, label }: any) => (
+//     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+//         <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+//             <Icon className="w-7 h-7 text-amber-700" />
+//         </div>
+//         <div className="text-3xl font-bold text-amber-700 mb-2">{value}</div>
+//         <p className="text-sm text-gray-600">{label}</p>
+//     </div>
+// )
 
-const TrustBox = ({ Icon, title, desc, color, bg }: any) => (
-    <div className="flex items-start space-x-4">
-        <div className={`flex-shrink-0 w-12 h-12 ${bg} rounded-full flex items-center justify-center`}>
-            <Icon className={`w-6 h-6 ${color}`} />
-        </div>
-        <div>
-            <h3 className="text-base font-semibold text-gray-900 mb-2">{title}</h3>
-            <p className="text-sm text-gray-600">{desc}</p>
-        </div>
-    </div>
-)
+// const TrustBox = ({ Icon, title, desc, color, bg }: any) => (
+//     <div className="flex items-start space-x-4">
+//         <div className={`flex-shrink-0 w-12 h-12 ${bg} rounded-full flex items-center justify-center`}>
+//             <Icon className={`w-6 h-6 ${color}`} />
+//         </div>
+//         <div>
+//             <h3 className="text-base font-semibold text-gray-900 mb-2">{title}</h3>
+//             <p className="text-sm text-gray-600">{desc}</p>
+//         </div>
+//     </div>
+// )

@@ -3,8 +3,6 @@ import {
   Users,
   FolderOpen,
   Layers,
-  TrendingUp,
-  TrendingDown,
   Activity,
   ChevronRight,
   Download,

@@ -1505,7 +1505,6 @@ import { useEffect, useState } from 'react';
 import {
     Search,
     Eye,
-    Filter,
     SortAsc,
     SortDesc,
     X,
@@ -1514,8 +1513,7 @@ import {
     Trash2,
     RefreshCw,
     AlertCircle,
-    Tag,
-    ChevronRight
+    Tag
 } from 'lucide-react';
 import { backendApi } from '../../../api';
 

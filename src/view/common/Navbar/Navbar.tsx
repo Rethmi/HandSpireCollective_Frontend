@@ -122,7 +122,7 @@
 // };
 
 import { useEffect, useState } from 'react';
-import { Menu, Palette, X, LayoutDashboard, User } from "lucide-react";
+import { Menu, Palette, X, LayoutDashboard } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, PlusSquare, FolderHeart, Mail } from 'lucide-react';
 

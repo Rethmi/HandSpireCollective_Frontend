@@ -771,7 +771,7 @@
 
 // export default UserRegisterForm;
 import React, { useState } from 'react';
-import { User, Mail, Lock, Eye, EyeOff, UserPlus, CheckCircle, AlertCircle, Palette, Loader2, ArrowLeft, Sparkle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, UserPlus, CheckCircle, AlertCircle, Palette, Loader2, ArrowLeft, Sparkle } from 'lucide-react';
 // 1. SweetAlert2 import කරන්න
 import Swal from 'sweetalert2';
 
@@ -798,7 +798,7 @@ const UserRegisterForm = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
-    const [registeredUser, setRegisteredUser] = useState<UserDto | null>(null);
+    const [ setRegisteredUser] = useState<UserDto | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -866,7 +866,7 @@ const UserRegisterForm = () => {
             });
 
             setSuccess(true);
-            setRegisteredUser(result);
+           // setRegisteredUser(result);
             setFormData({ email: '', firstName: '', lastName: '', password: '', confirmPassword: '' });
             
             setTimeout(() => { window.location.href = '/login'; }, 1000); 

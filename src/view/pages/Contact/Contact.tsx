@@ -7,11 +7,9 @@ import React, { useState } from 'react';
 import { 
     Mail, 
     Phone, 
-    MapPin, 
     Send, 
     MessageSquare, 
     Clock, 
-    ChevronRight,
     Loader2,
     Sparkles
 } from 'lucide-react';

@@ -1081,9 +1081,8 @@ import {
     AlertCircle,
     Users,
     Mail,
-    User as UserIcon,
+    User as 
     ShieldCheck,
-    Calendar,
     Hash
 } from 'lucide-react';
 
