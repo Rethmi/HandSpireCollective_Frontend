@@ -1585,18 +1585,35 @@ const ViewCategoriesPage = () => {
     //         setIsSubmitting(false);
     //     }
     // };
-    const updateCategory = async (categoryId: string, data: any) => {
+//     const updateCategory = async (categoryId: string, data: any) => {
+//     try {
+//         const response = await backendApi.put(`/category/${categoryId}`, data);
+
+//         alert("Category updated successfully!");
+//         fetchCategories(); // refresh list
+//     } catch (error: any) {
+//         console.error("Update failed:", error.response?.data);
+//         alert(error.response?.data?.error || "Update failed");
+//     }
+// };
+const updateCategory = async (categoryId: string, data: any) => {
     try {
-        const response = await backendApi.put(`/category/${categoryId}`, data);
+        setIsSubmitting(true); // Ensure loading state is active
+        
+        // We removed 'const response =' because we are refreshing 
+        // the whole list via fetchCategories() instead of using the return value.
+        await backendApi.put(`/category/${categoryId}`, data);
 
         alert("Category updated successfully!");
-        fetchCategories(); // refresh list
+        await fetchCategories(); // Refresh the list from the server
+        closeUpdateModal();      // Close the modal on success
     } catch (error: any) {
         console.error("Update failed:", error.response?.data);
-        alert(error.response?.data?.error || "Update failed");
+        setError(error.response?.data?.error || "Update failed");
+    } finally {
+        setIsSubmitting(false);
     }
 };
-
 
     // Delete category
     const deleteCategory = async (id: string) => {
