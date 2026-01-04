@@ -20,7 +20,7 @@ import axios from "axios";
 
 export const backendApi = axios.create({
     //baseURL: 'http://localhost:5000/api'
-    baseURL:'hand-spire-collective-backend.vercel.app/api'
+    baseURL:'https://hand-spire-collective-backend.vercel.app/api'
 });
 
 backendApi.interceptors.request.use((config) => {
