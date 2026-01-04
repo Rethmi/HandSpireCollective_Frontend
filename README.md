@@ -1,73 +1,197 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🎨 Hand_Spire_Collective
 
-Currently, two official plugins are available:
+📌 Project Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Hand_Spire_Collective is a full-stack web application designed to connect artists, crafters, and customers on a single creative platform. Users can explore diverse creative categories such as painting, jewelry making, paper crafts, and more.
 
-## React Compiler
+The system provides secure authentication, role-based access control (Admin & User), category and project management, and a modern, fully responsive user interface.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project was developed as part of an academic / software development assignment, with a strong focus on:
 
-## Expanding the ESLint configuration
+              Clean and modern UI/UX design
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+              RESTful API architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+              Full CRUD functionality
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+              Secure authentication and authorization
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🛠️ Technologies & Tools Used
+🎯 Frontend
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    ⚛️ React + TypeScript
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    🎨 Tailwind CSS
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    🧠 Redux Toolkit
+
+    🧭 React Router DOM
+
+    🖼️ Lucide Icons
+
+    🌐 Axios
+
+⚙️ Backend
+
+    🟢 Node.js
+
+    🚀 Express.js
+
+    🍃 MongoDB
+
+    📦 Mongoose
+
+    🔐 JWT Authentication
+
+    ☁️ Cloudinary (Image Uploads)
+
+    🧰 Tools & Platforms
+
+    💻 VS Code
+
+    🧪 Postman
+
+    🗂️ Git & GitHub
+
+    🌍 MongoDB Atlas
+
+
+🚀 Vercel (Backend Deployment)
+
+🌐 Vercel (Frontend Deployment)
+
+
+
+⚙️ Setup & Run Instructions
+🔹 Backend Setup
+
+1. Clone the repository
+	git clone https://github.com/Rethmi/HandSpireCollective_Backend.git
+ 
+2. Install dependencies
+	npm install
+
+ 
+3. Configure environment variables (`.env`)
+
+
+4. Run the backend server
+	npm run dev
+ 
+
+Backend will run on:
+ 	http://localhost:5000
+ 
+
+🔹 Frontend Setup
+
+1. Clone the frontend repository
+	https://github.com/Rethmi/HandSpireCollective_Frontend.git
+ 
+
+2. Install dependencies
+	npm install
+	
+
+3. Start the development server
+	npm run dev
+ 
+
+Frontend will run on:
+	http://localhost:5173
+ 
+
+🌍 Deployed URLs
+
+	Frontend: hand-spire-collective-frontend.vercel.app
+	Backend : hand-spire-collective-backend.vercel.app
+ 
+
+  ✨ Main Features
+
+  👤 User Features
+
+* User registration & login (JWT authentication)
+* Browse creative categories and items
+* Search and filter crafts
+* View detailed product pages
+* Responsive UI for all devices
+
+  🛡️ Admin Features
+
+* Admin dashboard
+* Category management (Add / Update / Delete)
+* User management
+* Secure role-based access
+
+  🎨 UI & UX
+
+* Modern glassmorphism design
+* Smooth animations and transitions
+* Icon-based navigation
+* Dark theme interface
+
+
+
+🖼️ Screenshots
+
+  📝 Register Page
+
+![Register Page](src/assets/screenshot/register.png)
+
+
+  🔐 Login Page
+
+![Login Page](src/assets/screenshot/login.png)
+
+
+  🏠 Home Page
+
+![Home Page](src/assets/screenshot/home.png)
+
+ 
+ 🛠️ Admin Dashboard
+
+![Admin Dashboard](src/assets/screenshot/admindashboard.png)
+
+
+  📊 Generate Report Page
+
+![Generate Report](src/assets/screenshot/generate_report.png)
+
+
+  📂 Category Page
+
+![Category](src/assets/screenshot/catagoery.png)
+
+
+  👥 User Management Page
+
+![User Management](src/assets/screenshot/user.png)
+
+
+  ➕ Add Project Page
+
+![Add Project](src/assets/screenshot/add_project.png)
+
+
+  🎨 My Projects Page
+
+![My Projects](src/assets/screenshot/myproject.png)
+
+
+  🔍 View Project Details Page
+
+![View Project Details](src/assets/screenshot/view_project.png)
+
+
+
+  👩‍💻 Author
+
+**Sainsa Rethmi Thennakoon**
+ 
+
+ 
+
+ 
