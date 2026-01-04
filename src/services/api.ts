@@ -63,7 +63,8 @@ import axios, { AxiosError } from "axios";
 import { refreshTokens } from "./auth";
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/v1"
+    //baseURL: "http://localhost:5000/api/v1"
+     baseURL:'https://hand-spire-collective-backend.vercel.app/api/v1'
 });
 
 const PUBLIC_ENDPOINTS = ['/user/login', "/user/register", "/user/refresh"];
